@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# screenshots and contact sheets produced by the scripts in /scripts
+/scripts/out/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

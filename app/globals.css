@@ -1,26 +1,366 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------
+   WorldPlates design tokens
+   Palette: deep forest green primary, warm cream grounds, charcoal ink.
+   Two accents, each with exactly one job — tomato for saved/hot,
+   saffron for ratings. They never trade places.
+------------------------------------------------------------------- */
+
+@theme {
+  /* Greens */
+  --color-forest: #0f3d2e;
+  --color-forest-mid: #17553f;
+  --color-forest-deep: #082a1f;
+  --color-forest-wash: #e8efe9;
+
+  /* Grounds — cream is deliberately lighter and warmer than the
+     #F4F1EA oatmeal that shows up on every food page. */
+  --color-cream: #faf6ee;
+  --color-cream-deep: #f1e9da;
+  --color-paper: #ffffff;
+
+  /* Text */
+  --color-ink: #1b211d;
+  --color-muted: #6b7269;
+  --color-faint: #8f958c;
+
+  /* Accents, one job each */
+  --color-tomato: #c8452d;
+  --color-tomato-wash: #fbeeea;
+  --color-saffron: #d9a227;
+
+  /* Structure */
+  --color-line: #e4dbc9;
+  --color-line-soft: #efe8db;
+
+  /* Type */
+  --font-display: var(--font-dm-serif), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  /* Radii */
+  --radius-card: 20px;
+  --radius-media: 28px;
+  --radius-field: 14px;
+
+  /* Soft shadows — low opacity, warm-shifted so they sit on cream */
+  --shadow-soft: 0 1px 2px rgba(27, 33, 29, 0.04), 0 8px 24px rgba(27, 33, 29, 0.06);
+  --shadow-lift: 0 2px 4px rgba(27, 33, 29, 0.05), 0 18px 40px rgba(27, 33, 29, 0.1);
+  --shadow-chip: 0 4px 20px rgba(27, 33, 29, 0.12);
+
+  /* Fluid display sizes */
+  --text-display-xl: clamp(2.75rem, 1.6rem + 4.4vw, 3.875rem);
+  --text-display-lg: clamp(2.125rem, 1.5rem + 2.4vw, 2.875rem);
+  --text-display-md: clamp(1.625rem, 1.3rem + 1.3vw, 2.125rem);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* Non-Latin dish names fall back to system faces rather than pulling
+   down four more webfonts. */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-script: "Noto Sans", "Noto Sans JP", "Segoe UI", "Hiragino Sans",
+      "Yu Gothic", "Microsoft YaHei", "Noto Naskh Arabic", "Tahoma", system-ui,
+      sans-serif;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-ink);
+  }
+
+  /* One focus treatment everywhere. Forest on cream and a white outer
+     ring so it stays visible when it lands on photography. */
+  :focus-visible {
+    outline: 2px solid var(--color-forest);
+    outline-offset: 2px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 4px rgba(250, 246, 238, 0.9);
+  }
+
+  ::selection {
+    background-color: var(--color-forest);
+    color: var(--color-cream);
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Never let a stray long word blow out a card */
+  h1,
+  h2,
+  h3,
+  p,
+  li {
+    overflow-wrap: break-word;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* ---- The data voice -------------------------------------------
+     Mono, small, tracked. Carries coordinates, times, counts and
+     eyebrows — the factual register beneath the serif headlines. */
+  .u-data {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .u-data-sm {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* Dish names in their own script — no uppercasing, no tracking. */
+  .u-script {
+    font-family: var(--font-script);
+    font-feature-settings: normal;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* 1rem at the very smallest widths — at 320px the extra 8px a side is the
+     difference between the header fitting and the page scrolling sideways. */
+  .u-shell {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 400px) {
+    .u-shell {
+      padding-inline: 1.25rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .u-shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Fixed-ratio media frame: the image scales on hover, the frame
+     never does, so nothing reflows. */
+  .u-frame {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-cream-deep);
+    isolation: isolate;
+  }
+
+  .u-frame img {
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .group:hover .u-frame img {
+    transform: scale(1.04);
+  }
+}
+
+@layer utilities {
+  /* ---- Entrance motion ------------------------------------------
+     One orchestrated hero load, plus a single 8px rise on section
+     entry. Nothing else moves on its own.
+
+     The hidden state applies only where scripting is available, so with
+     JavaScript off — or in a browser too old to know the query — every
+     section renders visible. An animation must never be the reason
+     somebody cannot read the page. */
+  @media (scripting: enabled) {
+    .u-rise {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  .u-rise[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+    transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .u-hero-in {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: wp-rise 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .u-wipe {
+    clip-path: inset(0 0 100% 0);
+    animation: wp-wipe 900ms cubic-bezier(0.22, 1, 0.36, 1) 150ms forwards;
+  }
+
+  .u-scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
+  }
+
+  .u-scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .u-scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--color-line);
+    border-radius: 999px;
+  }
+
+  .u-no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .u-no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+@keyframes wp-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wp-wipe {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes wp-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.u-skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-cream-deep);
+}
+
+.u-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.65),
+    transparent
+  );
+  animation: wp-shimmer 1.6s infinite;
+}
+
+/* ---- Reduced motion ----------------------------------------------
+   Everything above stops. Content still arrives at its final state. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .u-rise,
+  .u-hero-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .u-wipe {
+    clip-path: none;
+  }
+
+  .u-skeleton::after {
+    display: none;
+  }
+
+  .group:hover .u-frame img {
+    transform: none;
+  }
+}
+
+/* ---- Print --------------------------------------------------------
+   Recipes and shopping lists get printed. Drop the furniture, keep
+   the content, and make links legible on paper. */
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  .print-hide {
+    display: none !important;
+  }
+
+  .print-block {
+    display: block !important;
+  }
+
+  .print-plain {
+    box-shadow: none !important;
+    border-color: #ccc !important;
+    background: #fff !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555;
+  }
 }

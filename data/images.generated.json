@@ -1,0 +1,352 @@
+{
+  "jollof-rice": {
+    "src": "/dishes/jollof-rice.jpg",
+    "width": 1600,
+    "height": 1060,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgME/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDBAAREhMhMZEiUaH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBf/EABsRAAEEAwAAAAAAAAAAAAAAAAEAAhEhAxIT/9oADAMBAAIRAxEAPwDNJXhjcoG5uuuYPkYxVq39x1FaKdUPxY7U67+yMFOd7IJn4yHXkoN+9ZK/cng1FA/ST6QBf0YHO9ppUi7JIaDa/9k=",
+    "article": "Jollof_rice",
+    "author": "Noahalorwu",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jollof_Rice_with_Stew.jpg"
+  },
+  "doro-wat": {
+    "src": "/dishes/doro-wat.jpg",
+    "width": 1600,
+    "height": 1064,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAID/8QAIhAAAgEDAwUBAAAAAAAAAAAAAQIEAAMREiFBBRMyUWGh/8QAFAEBAAAAAAAAAAAAAAAAAAAABP/EABgRAAIDAAAAAAAAAAAAAAAAAAABETFB/9oADAMBAAIRAxEAPwA025HWaHw5tg5T1jn9qbciELjMYxPIIOCKxmIvZbbxJx83pPQbaEM2kaiwGflAdSNw/9k=",
+    "article": "Doro_wat",
+    "author": "stu_spivack",
+    "licence": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ethiopian_wat.jpg"
+  },
+  "bobotie": {
+    "src": "/dishes/bobotie.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAwT/xAAgEAADAAIBBQEBAAAAAAAAAAABAgMEEQAFEyExwRJh/8QAFAEBAAAAAAAAAAAAAAAAAAAABP/EABgRAAMBAQAAAAAAAAAAAAAAAAABEQIx/9oADAMBAAIRAxEAPwB8UQw8JcmsZ2ejkBggIUD7yfqM0tCjtFe5rYftfgAfeJgOKK2HREeFfJUjXn+a4XWcp2qMMBVioB0B7163w7VzaJ5uH//Z",
+    "article": "Bobotie",
+    "author": "Olga Ernst",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bobotie%2C_South_African_dish.jpg"
+  },
+  "lamb-tagine": {
+    "src": "/dishes/lamb-tagine.jpg",
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIEBf/EACIQAAEDAwQDAQAAAAAAAAAAAAECAxEABBIFISKBEzFRYf/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAYEQADAQEAAAAAAAAAAAAAAAAAARECEv/aAAwDAQACEQMRAD8AkT5X+Vy47uYQhswI/aa2u12rgC3FqaMZocMyPoNDV1qtNSU2wcEEZR737rNDq3Xuap5DbuhWXROlD//Z",
+    "article": "File:Moroccan tajine.jpg",
+    "author": "Yanygin Maxim",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMoroccan%20tajine.jpg"
+  },
+  "shoyu-ramen": {
+    "src": "/dishes/shoyu-ramen.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAgX/xAAiEAACAQMEAgMAAAAAAAAAAAABAgMEESEABRIxE1FBYXH/xAAUAQEAAAAAAAAAAAAAAAAAAAAE/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAECIf/aAAwDAQACEQMRAD8AdO7JVMi+McU5XPZ/NDeI1lo6hpFVainRJFkCcS4JsVNsHvvTWJJZF5DKjBGDb1qfuhIdqYEiPDNm5Y/Fz9etHkVS0//Z",
+    "article": "Ramen",
+    "author": "Quercus acuta",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Shoyu_Ramen%EF%BC%88Tokyo_Ramen%EF%BC%89_-_01.jpg"
+  },
+  "bibimbap": {
+    "src": "/dishes/bibimbap.jpg",
+    "width": 1600,
+    "height": 1068,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBf/EAB8QAAICAgEFAAAAAAAAAAAAAAECAxEAEgQFEyJBUf/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAWEQEBAQAAAAAAAAAAAAAAAAAAEUH/2gAMAwEAAhEDEQA/AJpSgm0kkft6jxQ0Tfs4B4fELKUlEhdL1IplP3MrqUjGRDsbArEcV2EwOxw5pK//2Q==",
+    "article": "Bibimbap",
+    "author": "Sous Chef",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dolsot-bibimbap.jpg"
+  },
+  "pho-bo": {
+    "src": "/dishes/pho-bo.jpg",
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAL/xAAfEAACAgIBBQAAAAAAAAAAAAABAgMEABFBBRIhYXH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABgRAQADAQAAAAAAAAAAAAAAAAEAAgMh/9oADAMBAAIRAxEAPwAS0mrSxyzMDACd9pIO/o4xZ6dQkQMIoBztdjEsoWKoFAAfYb3kxV4lbwgGTujWM58FZ//Z",
+    "article": "File:Phở bò, Cầu Giấy, Hà Nội.jpg",
+    "author": "Codename5281",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3APh%E1%BB%9F%20b%C3%B2%2C%20C%E1%BA%A7u%20Gi%E1%BA%A5y%2C%20H%C3%A0%20N%E1%BB%99i.jpg"
+  },
+  "banh-mi": {
+    "src": "/dishes/banh-mi.jpg",
+    "width": 1600,
+    "height": 1093,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAIBAAAgICAgIDAAAAAAAAAAAAAQIEEQADITEFEhQiYf/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAXEQEAAwAAAAAAAAAAAAAAAAABAAIR/9oADAMBAAIRAxEAPwAkKRpls2xj9kNI7drjpvxxDc71fYQKX25BNZn/ABZqauvj0cWRXZHWUpihIsnYvDXV/nWDjW0QxJ//2Q==",
+    "article": "File:Lunch at Hue Cafe (3249091535).jpg",
+    "author": "Kenny Louie from Vancouver, Canada",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ALunch%20at%20Hue%20Cafe%20(3249091535).jpg"
+  },
+  "butter-chicken": {
+    "src": "/dishes/butter-chicken.jpg",
+    "width": 1600,
+    "height": 2131,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAVABADASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAQBAgMF/8QAIxAAAgEDBAEFAAAAAAAAAAAAAQIDAAQRBRITIUEUMVFx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMC/8QAGBEBAAMBAAAAAAAAAAAAAAAAAQACEQP/2gAMAwEAAhEDEQA/ALDQ5mGGl2gnGDgkj8rlBOCR1V+skblp+2lu54bmSe4edUUHjDbM/ePesEjllAiEPGjEhQOlU/OfNHZNxi15lXLRT1bWxJCh0PTIScGpm1FUQPFb7CfAc4ooq2oxuzjP/9k=",
+    "article": "Butter_chicken",
+    "author": "Yuvraj Singh 97",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Butter_Chicken_%26_Butter_Naan_-_Home_-_Chandigarh_-_India_-_0006.jpg"
+  },
+  "green-curry": {
+    "src": "/dishes/green-curry.jpg",
+    "width": 1600,
+    "height": 1071,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAT/xAAhEAADAAIBAwUAAAAAAAAAAAABAgMEEQAFUXESEyFBgf/EABQBAQAAAAAAAAAAAAAAAAAAAAT/xAAYEQADAQEAAAAAAAAAAAAAAAAAAQIhUf/aAAwDAQACEQMRAD8AibqGLR6ScutEpoBlLDQ8cZUpFPdGKDAAAgzCnz3H7wKNO12TSt69b0O3Isi9aYlKu5LjWj2+PocFM7gl9Z//2Q==",
+    "article": "Green_curry",
+    "author": "Takeaway",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Thai_green_chicken_curry_and_roti.jpg"
+  },
+  "chicken-adobo": {
+    "src": "/dishes/chicken-adobo.jpg",
+    "width": 1280,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAPABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBf/EACMQAAICAQMDBQAAAAAAAAAAAAECAwQRABIhBRMxQUJRYXH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAGBEAAgMAAAAAAAAAAAAAAAAAABEBITH/2gAMAwEAAhEDEQA/ANJrXYScyKY+yQVZDnJ8Ac+dIq9YZ51SxFzIQodXBwfQEY0U8Ul6CaJXyw2su8e4H5+9SVqFh7aNYiWNQynhgckHOOPzQOaWDqLen//Z",
+    "article": "File:MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0011).jpg",
+    "author": "USDAgov",
+    "licence": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMyPlate%20gov%20Cultural%20Food%20(20241025-USDA-FNS-UNK-0011).jpg"
+  },
+  "risotto-alla-milanese": {
+    "src": "/dishes/risotto-alla-milanese.jpg",
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgQF/8QAHhAAAgICAwEBAAAAAAAAAAAAAQIDEQQSABMxBUH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABcRAAMBAAAAAAAAAAAAAAAAAAABAhH/2gAMAwEAAhEDEQA/AKvqOwlCNfXQpQa25kGZNz1ACjRYeDifMx4snEk7kD6C1P6Dw/hwRyTuXXbXwEmuTqXoppYf/9k=",
+    "article": "Risotto_alla_milanese",
+    "author": "Luca Nebuloni from Milan, Italy",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Risotto_with_speck_and_goat_cheese_(6101067436).jpg"
+  },
+  "creme-brulee": {
+    "src": "/dishes/creme-brulee.jpg",
+    "width": 1600,
+    "height": 1308,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAANABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAID/8QAIRAAAgEDBQADAAAAAAAAAAAAAQIDAAQRBRMhQVESIjH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABkRAAIDAQAAAAAAAAAAAAAAABESAAEhAv/aAAwDAQACEQMRAD8AxS3EKRy7eHZdwNjJA6A8NUujxT28ktuQHX7cnhuznw0A63NtLAyAtEMBs/o6yMUZ9WubkGH5baHhgvY8qa9MTkZpQNn/2Q==",
+    "article": "Crème_brûlée",
+    "author": "Takeaway",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:2014_0531_Cr%C3%A8me_br%C3%BBl%C3%A9e_Doi_Mae_Salong_(cropped).jpg"
+  },
+  "moussaka": {
+    "src": "/dishes/moussaka.jpg",
+    "width": 1400,
+    "height": 933,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBf/EACEQAAIBBAAHAAAAAAAAAAAAAAECAwAEESESFDFBQmGh/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABgRAQADAQAAAAAAAAAAAAAAABEAARIC/9oADAMBAAIRAxEAPwC6dYl0bNZAp8mO6RG0aXyw8uY43BOOIt8PQVqzKAwGBj3ugIAOgBrtR560sRoJ/9k=",
+    "article": "Moussaka",
+    "author": "Robert Kindermann aka RobertK",
+    "licence": "CC BY-SA 2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:MussakasMeMelitsanesKePatates01.JPG"
+  },
+  "pierogi": {
+    "src": "/dishes/pierogi.jpg",
+    "width": 1600,
+    "height": 1592,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAID/8QAIRAAAwACAQQDAQAAAAAAAAAAAQIDBBEABRIiYRMhMYH/xAAVAQEBAAAAAAAAAAAAAAAAAAABAv/EABYRAAMAAAAAAAAAAAAAAAAAAAARIf/aAAwDAQACEQMRAD8Ajp+DjznF7xWtbL3+Y8ZrrY+uLr0/GyYu0orKqDuAVdBh7HM+m5EMmCTeqTuiCRD60yg/o/nGZGXDFgw+RHuwKAI29D3yaxiP/9k=",
+    "article": "Pierogi",
+    "author": "Aw58",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pierogi_z_mas%C5%82em_-_2023.03.31.jpg"
+  },
+  "khachapuri": {
+    "src": "/dishes/khachapuri.jpg",
+    "width": 1600,
+    "height": 1063,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQME/8QAHxAAAgIBBAMAAAAAAAAAAAAAAQIDEQAEITFBElHR/8QAFAEBAAAAAAAAAAAAAAAAAAAABP/EABgRAAIDAAAAAAAAAAAAAAAAAAABAiEx/9oADAMBAAIRAxEAPwCWlhadUYsUUlbJGxv0eztmiSNUYhQR8wyHiuhxiMbFwPM3WFltCUf/2Q==",
+    "article": "Khachapuri",
+    "author": "Vyacheslav Argenberg",
+    "licence": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Old_Tbilisi%2C_Georgian_khachapuri%2C_Georgia.jpg"
+  },
+  "paella-valenciana": {
+    "src": "/dishes/paella-valenciana.jpg",
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQIEBf/EACIQAAIBBAEEAwAAAAAAAAAAAAECAwAEBRESEyEiMSNRsf/EABUBAQEAAAAAAAAAAAAAAAAAAAME/8QAGREAAgMBAAAAAAAAAAAAAAAAABEBEhMC/9oADAMBAAIRAxEAPwDTy11M87QE8UXQ197/AGjiLiRZmiB3GR2HvVV5iFDbdUr8g7ct0+LgjS1R1XyceR9k1Jn3s2NaKI//2Q==",
+    "article": "Paella",
+    "author": "Jan Harenburg",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:01_Paella_Valenciana_original.jpg"
+  },
+  "tacos-al-pastor": {
+    "src": "/dishes/tacos-al-pastor.jpg",
+    "width": 1171,
+    "height": 1732,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABADASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABAADBf/EACMQAAICAgICAQUAAAAAAAAAAAECAwQAERIhBVFhMkFTocH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABoRAAICAwAAAAAAAAAAAAAAAAABAhETIWH/2gAMAwEAAhEDEQA/AM/K1KjWhHHAySgLt1IC9/GsGaHKfiHX6S2mOvXX7zqXGUWmmZfxjfro4TySSPIJAheNRokEEg/zA21MulHH0bfosI69ma2iu4AK60Pjrv3hrVk0YW4PG87sOLoN9ffLLFWyV0j/2Q==",
+    "article": "Tacos_al_pastor",
+    "author": "Matt Saunders",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tacos-al-Pastor.jpg"
+  },
+  "chicken-gumbo": {
+    "src": "/dishes/chicken-gumbo.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAwT/xAAhEAACAgEEAgMAAAAAAAAAAAABAwIRBAAhMVESQRMiYf/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAGBEBAQEBAQAAAAAAAAAAAAAAAREAEjH/2gAMAwEAAhEDEQA/AAxolkVzAiZMJIPjfBqq7250kErZOZamEWRF7RrmhR/dR4uQzGZ4LP1DNgfV9H1omZbWNWSREfISQByez3qSK+5U5k3/2Q==",
+    "article": "Gumbo",
+    "author": "Amadscientist",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gumbo.JPG"
+  },
+  "poutine": {
+    "src": "/dishes/poutine.jpg",
+    "width": 1240,
+    "height": 698,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAwEF/8QAJBAAAQMCBAcAAAAAAAAAAAAAAQACAwQRBRIUITIzcXKhsdH/xAAUAQEAAAAAAAAAAAAAAAAAAAAE/8QAGBEBAQADAAAAAAAAAAAAAAAAAQACESP/2gAMAwEAAhEDEQA/ALNVHUgObYC4JbuAR7T4fJI6oyh1ojsABceUU3Mh7/i0qXhf1Qg6Sl1hf//Z",
+    "article": "Poutine",
+    "author": "Camelia.boban",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Food_at_WIkimanian_2017_02.jpg"
+  },
+  "feijoada": {
+    "src": "/dishes/feijoada.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAQQF/8QAIBAAAgICAgIDAAAAAAAAAAAAAQIDEQAEEiETQRQyYf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAwDAQACEQMRAD8ArnMMOq/hReV8VNV37P4MyJ5NhBGjyEqx7Ba7N4w7c0EhRW5DmPt3juKnz1pFFU3Xs4hX/9k=",
+    "article": "File:Feijoada con arroz blanco en restaurante de Argentina.jpg",
+    "author": "Horacio Cambeiro",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AFeijoada%20con%20arroz%20blanco%20en%20restaurante%20de%20Argentina.jpg"
+  },
+  "ceviche-clasico": {
+    "src": "/dishes/ceviche-clasico.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgQF/8QAIBAAAgEDBAMAAAAAAAAAAAAAAQIDAAQREiExUQUiMv/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAEREiH/2gAMAwEAAhEDEQA/ABavLalIg/s25UL8jPdC/wDGySW4Nqpdl5Q4BGd9q11iQoHA0lzlscGppnd42dnOpiQT3imNOMrmaf/Z",
+    "article": "Ceviche",
+    "author": "Picanteria karol",
+    "licence": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cebiche_de_corvina.JPG"
+  },
+  "arepas-rellenas": {
+    "src": "/dishes/arepas-rellenas.jpg",
+    "width": 1280,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAPABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQMEBf/EACIQAAIBAwQCAwAAAAAAAAAAAAECAwAEEQUSIUETMVFxof/EABUBAQEAAAAAAAAAAAAAAAAAAAME/8QAGBEAAgMAAAAAAAAAAAAAAAAAABESIUH/2gAMAwEAAhEDEQA/ADZzyReVbjU0kU84jAJ+s9UwasEAjQF8sFDMc46rZjSIRjESDaPQUCoLjVEtZeJlUfG08flSrRpWj//Z",
+    "article": "File:MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0024).jpg",
+    "author": "USDAgov",
+    "licence": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMyPlate%20gov%20Cultural%20Food%20(20241025-USDA-FNS-UNK-0024).jpg"
+  },
+  "shakshuka": {
+    "src": "/dishes/shakshuka.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQME/8QAIBAAAgICAgIDAAAAAAAAAAAAAQIDBAASESEFE0FRYf/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAZEQACAwEAAAAAAAAAAAAAAAAAEQESITH/2gAMAwEAAhEDEQA/ADfE04pEkYs5YAnZE26GVnr1ooYrFZ9G5CvG57IPyPzDKV2erskMhVZOmH3mqW5LdmT3kHVSBwOMKXbomI//2Q==",
+    "article": "Shakshouka",
+    "author": "Calliopejen1",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Shakshuka_by_Calliopejen1.jpg"
+  },
+  "hummus": {
+    "src": "/dishes/hummus.jpg",
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQAE/8QAIxAAAgECBAcAAAAAAAAAAAAAAQIDABEEBTJhEhMhNFFxgf/EABQBAQAAAAAAAAAAAAAAAAAAAAL/xAAXEQEBAQEAAAAAAAAAAAAAAAARAQAC/9oADAMBAAIRAxEAPwA/KsXzYmEjq8xOlulhtvVmMaRQriAwR1sVXiN28j1vQSahWodwvyiW9LkQ3//Z",
+    "article": "Hummus",
+    "author": "Beyrouthhh at English Wikipedia",
+    "licence": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lebanese_style_hummus.jpg"
+  },
+  "kibbeh": {
+    "src": "/dishes/kibbeh.jpg",
+    "width": 1600,
+    "height": 1093,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMF/8QAIhAAAwABAwMFAAAAAAAAAAAAAQIDBAAFIRESFDFBUXGB/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABgRAAMBAQAAAAAAAAAAAAAAAAACIQES/9oADAMBAAIRAxEAPwCayhiiU/Joz9O5nIBU/R9tHbKpluYhFBLhueD8+ui52RamLEPQkCQP7xrQ2/FjXa5UeYZ369zE8nQ4u9URmkP/2Q==",
+    "article": "File:Mixed Plate (3186676853).jpg",
+    "author": "Charles Haynes from Hobart, Australia",
+    "licence": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMixed%20Plate%20(3186676853).jpg"
+  },
+  "khoresh-fesenjan": {
+    "src": "/dishes/khoresh-fesenjan.jpg",
+    "width": 1600,
+    "height": 1063,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAb/xAAhEAACAQQCAgMAAAAAAAAAAAABAgMABREhEhMEUUFhcf/EABQBAQAAAAAAAAAAAAAAAAAAAAH/xAAXEQEAAwAAAAAAAAAAAAAAAAAAEUFh/9oADAMBAAIRAxEAPwA3l3xn4iKJkCAASO2yR9eqZY75IzSpKzuqr7GB+VMvK/c45az8061yM3bk6Bxgao01D//Z",
+    "article": "Fesenjān",
+    "author": "stringparts",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Khoresht-e_fesenjan.jpg"
+  },
+  "jerk-chicken": {
+    "src": "/dishes/jerk-chicken.jpg",
+    "width": 1600,
+    "height": 1067,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgME/8QAIBAAAgIBAwUAAAAAAAAAAAAAAQIDEQASITEEE0Fhsf/EABQBAQAAAAAAAAAAAAAAAAAAAAT/xAAWEQEBAQAAAAAAAAAAAAAAAAARAQD/2gAMAwEAAhEDEQA/AMsKlyNZkcq178X8xyPokRBGpAJ4FWfXjH0JLBS25o8jIxjuxyNJblRYs3WGlaZAR3//2Q==",
+    "article": "File:Jamaican Jerk Chicken - Hyatt Hyderabad Gachibowli - Hyderabad 2023-04-29 8517.jpg",
+    "author": "Biswarup Ganguly",
+    "licence": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJamaican%20Jerk%20Chicken%20-%20Hyatt%20Hyderabad%20Gachibowli%20-%20Hyderabad%202023-04-29%208517.jpg"
+  },
+  "ackee-and-saltfish": {
+    "src": "/dishes/ackee-and-saltfish.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMF/8QAIRAAAgEDBAMBAAAAAAAAAAAAAQIDAAQRBSEyYRUiQYH/xAAVAQEBAAAAAAAAAAAAAAAAAAAEBf/EABkRAAMAAwAAAAAAAAAAAAAAAAABERMhMf/aAAwDAQACEQMRAD8AztNjWBTI8hVeJCjc9U63lS5cQogkiCtmNzxH7uKRNp8F5AXkBV4yQGQ4zg/andDx2iZt+b+hdt2we6n5G3V2wTqQ/9k=",
+    "article": "Ackee_and_saltfish",
+    "author": "gailf548 from New York State, USA",
+    "licence": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ackee_and_Saltfish.jpg"
+  },
+  "ropa-vieja": {
+    "src": "/dishes/ropa-vieja.jpg",
+    "width": 1280,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAPABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAwIF/8QAJRAAAgEDAwIHAAAAAAAAAAAAAQIDBBEhAAUTEiIjM0FRYXGB/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABgRAAMBAQAAAAAAAAAAAAAAAAABEQIx/9oADAMBAAIRAxEAPwC6jbWWK8Cq8inIB7VHuWONDRbfWuxPIsiXBIjmU4+hrT3Dkq6ZoYQvgk8sYwCPQ/Og2aAQX6KUI9/OuCc/t9G+xoSXNp//2Q==",
+    "article": "File:MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0069).jpg",
+    "author": "USDAgov",
+    "licence": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMyPlate%20gov%20Cultural%20Food%20(20241025-USDA-FNS-UNK-0069).jpg"
+  },
+  "pavlova": {
+    "src": "/dishes/pavlova.jpg",
+    "width": 1600,
+    "height": 1191,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgED/8QAHxAAAgICAgMBAAAAAAAAAAAAAQIDBAARBSESEyJR/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABcRAAMBAAAAAAAAAAAAAAAAAAAREiH/2gAMAwEAAhEDEQA/AFyNy09x0DyLEG8UC9A9YOPsTpdjVZHMZG32xK6y8gPRa+CdN3rNaJM0unJ8R9a/cE62OsR//9k=",
+    "article": "Pavlova_(cake)",
+    "author": "Hazel Fowler",
+    "licence": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Pavlova_dessert.JPG"
+  },
+  "lamington": {
+    "src": "/dishes/lamington.jpg",
+    "width": 1000,
+    "height": 918,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAPABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAgME/8QAIRAAAgICAQQDAAAAAAAAAAAAAQIDBAURABIhI2ExQXH/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAGhEAAgIDAAAAAAAAAAAAAAAAABIBESEiYf/aAAwDAQACEQMRAD8AcuPhpzmKtUEqFQwMh2ffc8YxWOyMCI0Rq2HPT1QMdBvY+Nc3ZGK2syvXjR11ohjr75fE0DBuxOPO/cjewv5wbNwUUuT/2Q==",
+    "article": "Lamington",
+    "author": "Zeitgeistlondon",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mocha_Flake_amingtons.jpg"
+  },
+  "hangi-lamb": {
+    "src": "/dishes/hangi-lamb.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQID/8QAHhAAAgEEAwEAAAAAAAAAAAAAAQIDAAQFERIhMSL/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ABbPHrNorIXJHiLWF3j5UuGSFJX0fOPeqRxTBLUHirF2IPLZqstNIkgVXIB+SAeqg//Z",
+    "article": "Hāngī",
+    "author": "Einalem",
+    "licence": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hangi_prepare.jpg"
+  },
+  "egusi-soup": {
+    "src": "/dishes/egusi-soup.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQME/8QAIxAAAgIBAwMFAAAAAAAAAAAAAQIDEQASITEEBUEyQlFxkf/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFREBAQAAAAAAAAAAAAAAAAAAAEH/2gAMAwEAAhEDEQA/AC+ni1RKqxFCQCrtYLvRoDnbn7rJ9ZE0yq6gMSdipF0RYB8k8/mZ4ZWDV7rXS9nUtHxiHcUKLKRI9Ek6dqFuwNfHpGTS/9k=",
+    "article": "Egusi",
+    "author": "Zz411 at English Wikipedia",
+    "licence": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:EGUSI.JPG"
+  },
+  "suya": {
+    "src": "/dishes/suya.jpg",
+    "width": 1600,
+    "height": 1200,
+    "blurDataURL": "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAMABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAJBAAAgEDAQkBAAAAAAAAAAAAAQIRAAMEIhITFBUhMkFRcWH/xAAUAQEAAAAAAAAAAAAAAAAAAAAE/8QAGREBAAIDAAAAAAAAAAAAAAAAAQACAxEh/9oADAMBAAIRAxEAPwA3Kmt4wudzESfXz7QOBXNlU0XQJBno35Wox1i3aUnaBHmpZyXOXulCogYjSsSKNpOxZa2QRn//2Q==",
+    "article": "Suya",
+    "author": "WhisperToMe",
+    "licence": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:SuyavarietiesTX.JPG"
+  }
+}
