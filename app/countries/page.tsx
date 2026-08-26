@@ -4,7 +4,7 @@ import { countries } from "@/data/countries";
 import { regions } from "@/data/regions";
 import { recipes } from "@/data/recipes";
 import { Flag } from "@/components/ui/Flag";
-import { CountryPlot } from "@/components/countries/CountryPlot";
+import { WorldMap } from "@/components/countries/WorldMap";
 import { formatCoordinates } from "@/lib/format";
 
 export const metadata: Metadata = {
@@ -24,16 +24,16 @@ export default function CountriesPage() {
       <header className="max-w-2xl">
         <p className="u-data text-forest">Browse by country</p>
         <h1 className="mt-3 text-[length:var(--text-display-lg)]">
-          {countries.length} countries, plotted
+          {countries.length} countries on the map
         </h1>
         <p className="mt-4 text-[1.0625rem] text-muted">
-          Every country in the collection sits at the real coordinates of its capital. The bigger
-          the dot, the more recipes it holds.
+          Every country in the collection is marked at the real coordinates of its capital. The
+          bigger the dot, the more recipes it holds.
         </p>
       </header>
 
       <div className="mt-10">
-        <CountryPlot countries={countries} counts={counts} />
+        <WorldMap countries={countries} counts={counts} />
       </div>
 
       {regions.map((region) => {

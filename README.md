@@ -43,7 +43,7 @@ data/           recipes, countries, cuisines, regions, reviews
 services/       recipeService + a swappable adapter
 hooks/          useAppStore — favorites, shopping list, meal plan
 lib/            types, units, filters, formatting
-scripts/        image pipeline and browser-driven checks
+scripts/        image pipeline, map builder and browser-driven checks
 assets/         fonts used to render the social card (not shipped to browsers)
 ```
 
@@ -71,6 +71,21 @@ It is the one thing a *global* recipe app can say that a local one cannot, and i
 cards, detail pages and the meal planner alike. In the same spirit, the region tiles on the home
 page are sized by how many recipes each region actually holds, so the shape of the collection is
 legible before you click.
+
+[/countries](app/countries/page.tsx) draws the same idea on the actual world. Outlines come from
+Natural Earth and are projected at author time by [scripts/build-map.mjs](scripts/build-map.mjs),
+so the page ships flat SVG path strings and no mapping library — d3-geo is a devDependency that
+never reaches the browser. Countries with recipes are filled and linked; everywhere else is drawn
+faint, as context you can read but not click.
+
+```bash
+npm run data:map                   # rebuild data/world-map.ts from Natural Earth
+```
+
+The projection is Natural Earth I rather than the reflexive Mercator, which would inflate
+Greenland past Africa — a poor look on a page about where food comes from. Background coastlines
+are simplified harder than the 29 countries in the collection, which halves the page weight
+without touching the subject.
 
 ## Deploying
 

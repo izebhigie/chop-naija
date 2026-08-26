@@ -12,7 +12,18 @@ const normalize = (value) =>
 
 const ROUTES = process.argv.slice(2).length
   ? process.argv.slice(2).map(normalize)
-  : ["/", "/recipes", "/recipes?region=asia"];
+  : [
+      "/",
+      "/recipes",
+      "/recipes?region=asia",
+      "/recipes/jollof-rice",
+      "/countries",
+      "/countries/nigeria",
+      "/cuisines",
+      "/favorites",
+      "/shopping-list",
+      "/meal-planner",
+    ];
 
 const browser = await puppeteer.launch({
   executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
