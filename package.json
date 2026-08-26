@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "eslint",
     "images:fetch": "node scripts/fetch-images.mjs",
+    "images:og": "node scripts/og-images.mjs",
     "images:sheet": "node scripts/contact-sheet.mjs",
     "check:console": "node scripts/console-check.mjs",
     "check:flows": "node scripts/flow-test.mjs",

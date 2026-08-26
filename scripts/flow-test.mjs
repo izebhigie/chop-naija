@@ -165,7 +165,12 @@ await page.goto(`${BASE}/`, { waitUntil: "networkidle2" });
 await new Promise((r) => setTimeout(r, 800));
 await page.click('input[type="search"]');
 await page.type('input[type="search"]', "tagine", { delay: 40 });
-await new Promise((r) => setTimeout(r, 1200));
+// Wait for the listbox rather than for a fixed number of milliseconds: the
+// lookup is debounced and then goes over the network, so any sleep long
+// enough to be reliable is mostly spent waiting for nothing.
+await page
+  .waitForSelector('[role="option"]', { timeout: 5000 })
+  .catch(() => {});
 const suggestions = await page.evaluate(() => {
   const options = [...document.querySelectorAll('[role="option"]')];
   return options.map((o) => o.textContent?.trim() ?? "");

@@ -1,0 +1,8 @@
+# Normalise line endings so Windows checkouts stop reporting phantom changes.
+* text=auto eol=lf
+
+# Binary assets git must not touch.
+*.ttf binary
+*.png binary
+*.jpg binary
+*.ico binary

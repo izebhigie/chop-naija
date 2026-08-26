@@ -44,6 +44,7 @@ services/       recipeService + a swappable adapter
 hooks/          useAppStore — favorites, shopping list, meal plan
 lib/            types, units, filters, formatting
 scripts/        image pipeline and browser-driven checks
+assets/         fonts used to render the social card (not shipped to browsers)
 ```
 
 **The service layer is the seam.** Pages and components only ever call `recipeService`, which
@@ -71,6 +72,24 @@ cards, detail pages and the meal planner alike. In the same spirit, the region t
 page are sized by how many recipes each region actually holds, so the shape of the collection is
 legible before you click.
 
+## Deploying
+
+Nothing needs configuring — there are no API keys and no database. On Vercel,
+import the repository and deploy; the repo root is the app root, so no root
+directory override is needed.
+
+One optional variable, once a custom domain is attached:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
+
+It sets `metadataBase`, so canonical URLs, the sitemap and Open Graph images all
+resolve absolutely. Left unset, [lib/site.ts](lib/site.ts) falls back to Vercel's
+own environment — the production host in production, the deployment host in a
+preview — and to `localhost:3000` elsewhere. Preview deployments serve
+`Disallow: /` so a throwaway domain never competes with production in search.
+
 ## Photography
 
 Dish photos come from each dish's Wikipedia article rather than a stock library — a stock search
@@ -81,6 +100,16 @@ runtime. Photographer and licence are stored per image and credited on every rec
 ```bash
 node scripts/fetch-images.mjs      # rebuild public/dishes from Wikipedia
 node scripts/contact-sheet.mjs     # tile them all into one image to review
+```
+
+The social card and the favicon are drawn from JSX in [scripts/og/](scripts/og/)
+and committed as `app/opengraph-image.png` and `app/icon.png`. They are files
+rather than `opengraph-image.tsx` routes because nothing about them varies per
+request — and because Next 16's dev server cannot serve generated metadata
+images, which put a broken favicon and two console errors on every page.
+
+```bash
+npm run images:og                  # redraw both from scripts/og/
 ```
 
 ## Checks

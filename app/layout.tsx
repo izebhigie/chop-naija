@@ -3,6 +3,7 @@ import { DM_Serif_Display, Manrope, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { siteUrl, isIndexable } from "@/lib/site";
 
 /**
  * Three faces, three jobs. DM Serif Display carries the headlines, Manrope
@@ -31,7 +32,8 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://worldplates.example"),
+  metadataBase: new URL(siteUrl),
+  alternates: { canonical: "/" },
   title: {
     default: "WorldPlates — Discover the world, one dish at a time",
     template: "%s · WorldPlates",
@@ -45,7 +47,13 @@ export const metadata: Metadata = {
     description:
       "Authentic recipes from countries around the world, with ingredients that scale and steps written to be cooked from.",
   },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: "WorldPlates — Discover the world, one dish at a time",
+    description:
+      "Authentic recipes from countries around the world, with ingredients that scale and steps written to be cooked from.",
+  },
+  robots: { index: isIndexable, follow: isIndexable },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
