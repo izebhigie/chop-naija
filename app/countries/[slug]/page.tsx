@@ -9,6 +9,7 @@ import { toCardList } from "@/lib/cards";
 import { formatCoordinates } from "@/lib/format";
 import { FoodImage } from "@/components/ui/FoodImage";
 import { Flag } from "@/components/ui/Flag";
+import { CountryInset } from "@/components/countries/CountryInset";
 import { RecipeCard } from "@/components/recipe/RecipeCard";
 import { EmptyState, ButtonLink, SectionHeading } from "@/components/ui/primitives";
 
@@ -97,8 +98,17 @@ export default async function CountryPage(props: PageProps<"/countries/[slug]">)
 
       {/* ------------------------------------------ Staples and techniques */}
       <div className="u-shell py-14">
-        <div className="grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-line md:grid-cols-2">
-          <div className="bg-paper p-7">
+        <div className="grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-line md:grid-cols-[0.78fr_1fr]">
+          <CountryInset
+            country={country}
+            places={countryRecipes.map((recipe) => ({
+              ...recipe.origin,
+              dish: recipe.name,
+            }))}
+          />
+
+          <div className="grid gap-px bg-line">
+          <div className="flex flex-col justify-center bg-paper p-7">
             <h2 className="u-data text-forest">What is always in the kitchen</h2>
             <ul className="mt-4 flex flex-wrap gap-2">
               {country.staples.map((staple) => (
@@ -112,7 +122,7 @@ export default async function CountryPage(props: PageProps<"/countries/[slug]">)
             </ul>
           </div>
 
-          <div className="bg-paper p-7">
+          <div className="flex flex-col justify-center bg-paper p-7">
             <h2 className="u-data text-forest">How things get cooked</h2>
             <ul className="mt-4 flex flex-wrap gap-2">
               {country.methods.map((method) => (
@@ -124,6 +134,7 @@ export default async function CountryPage(props: PageProps<"/countries/[slug]">)
                 </li>
               ))}
             </ul>
+          </div>
           </div>
         </div>
       </div>

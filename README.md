@@ -87,6 +87,19 @@ Greenland past Africa — a poor look on a page about where food comes from. Bac
 are simplified harder than the 29 countries in the collection, which halves the page weight
 without touching the subject.
 
+Each country page carries a locator map of its own, marking the cities its dishes actually come
+from — jollof rice belongs to Lagos, not to Nigeria in general. Those use an equirectangular fit
+per country, which is linear in lon/lat, so the page places a marker with `k · degrees + offset`
+and still ships no projection code. Only the one country's outline reaches the browser, so a
+country page costs about 16kB gzipped.
+
+Two framing rules matter there. A frame fitted to the single largest landmass puts New Zealand's
+North Island — and both cities its dishes come from — outside the picture, so the frame covers
+every polygon within a third of the largest one's area; that keeps both New Zealand islands and
+drops Alaska and Hawaii, which are drawn and then clipped. And the capital marker is suppressed
+when a dish already marks the same spot, because Ottawa sits four pixels from Montréal at Canada's
+scale.
+
 ## Deploying
 
 Nothing needs configuring — there are no API keys and no database. On Vercel,
