@@ -39,7 +39,7 @@ Every filter lives in the URL, so a filtered view can be bookmarked or shared:
 ```
 app/            routes (App Router) + two small API routes
 components/     ui/ · layout/ · recipe/ · discovery/ · home/ · search/
-data/           recipes, countries, cuisines, regions, reviews
+data/           recipes, countries, cuisines, regions, reviews, generated map geometry
 services/       recipeService + a swappable adapter
 hooks/          useAppStore — favorites, shopping list, meal plan
 lib/            types, units, filters, formatting
@@ -140,9 +140,38 @@ images, which put a broken favicon and two console errors on every page.
 npm run images:og                  # redraw both from scripts/og/
 ```
 
+## Maps
+
+The country outlines are real. They come from [Natural Earth](https://www.naturalearthdata.com/)
+(public domain) and are projected at author time by `scripts/build-map.mjs`, which writes plain SVG
+path strings into `data/`. The mapping library is a devDependency and never reaches the browser, so
+the whole of `/countries` is 50kB gzipped and prerenders as static HTML.
+
+```bash
+npm run data:map      # rebuild data/world-map.ts and data/country-insets.ts
+npm run check:map     # every capital and dish origin still inside its frame
+```
+
+Two resolutions, because they are doing different jobs: 1:110m for the world overview, where
+nothing finer would survive being drawn 1000px wide, and 1:50m for the per-country locator maps,
+where 110m costs Greece its islands and most of its coastline.
+
+Rerun `npm run data:map` after changing the country list, then `npm run check:map`. The build
+throws rather than guessing if a country has no outline, and the check fails if a marker falls
+outside the frame drawn for it — both of which have happened, and neither of which is visible by
+reading the data.
+
 ## Checks
 
-These drive your installed Chrome via `puppeteer-core`, so **the dev server must be running**:
+`npm test` is pure logic — quantity scaling, unit conversion, filters, sorting — and needs nothing
+running:
+
+```bash
+npm test               # 37 tests over lib/units.ts and lib/filters.ts
+npm run check:map      # map geometry (no browser needed either)
+```
+
+The rest drive your installed Chrome via `puppeteer-core`, so **the dev server must be running**:
 
 ```bash
 npm run dev            # terminal 1
@@ -165,3 +194,8 @@ rewrites a bare `/` into a Windows path.
 - Reviews you post are added to the page and marked as unsaved rather than pretending to persist.
 - Recipe prose uses British ingredient names where those are the names the dish uses
   (aubergine, coriander, tinned tomatoes); the interface is American English throughout.
+- Below 640px the world map is a picture rather than 29 links. At that width every marker is
+  well under the 24px minimum for a touch target, so the country list beneath it is the control
+  instead. The links are removed from the tab order too, not just hidden.
+- Country outlines are 1:50m, which is a national-scale generalisation. It is the right
+  resolution for locating a city, not for tracing a border.
