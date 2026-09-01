@@ -317,7 +317,7 @@ export function HowItWorks() {
           {STEPS.map((step, index) => (
             <Reveal as="li" key={step.title} delay={index * 80} className="bg-cream">
               <div className="flex h-full flex-col p-7 lg:p-9">
-                <span className="font-display text-5xl leading-none text-forest/25">
+                <span aria-hidden="true" className="font-display text-5xl leading-none text-forest/25">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-6 font-display text-2xl leading-tight text-ink">{step.title}</h3>
@@ -376,7 +376,7 @@ export function Community() {
         })}
       </ul>
 
-      <p className="mt-6 u-data-sm text-faint">
+      <p className="mt-6 u-data-sm text-muted">
         Most recent review {formatDate(featured[0]?.date ?? "2026-08-07")}
       </p>
     </section>
@@ -412,7 +412,7 @@ export function Newsletter() {
             required
             autoComplete="email"
             placeholder="you@example.com"
-            className="h-13 flex-1 rounded-full bg-cream px-6 text-ink outline-none ring-1 ring-transparent placeholder:text-faint focus-visible:ring-2 focus-visible:ring-saffron"
+            className="h-13 flex-1 rounded-full bg-cream px-6 text-ink outline-none ring-1 ring-transparent placeholder:text-muted focus-visible:ring-2 focus-visible:ring-saffron"
           />
           <button
             type="submit"

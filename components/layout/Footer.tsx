@@ -119,10 +119,10 @@ export function Footer() {
             </ul>
           </div>
 
-          <p className="text-sm text-faint">© {new Date().getFullYear()} WorldPlates</p>
+          <p className="text-sm text-muted">© {new Date().getFullYear()} WorldPlates</p>
         </div>
 
-        <p className="mt-6 text-xs text-faint">
+        <p className="mt-6 text-xs text-muted">
           Dish photography from Wikimedia Commons, credited on each recipe. Recipes are written
           for this demo and are not from a licensed recipe database.
         </p>

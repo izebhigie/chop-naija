@@ -162,7 +162,7 @@ export function MealPlannerClient({ options }: { options: PlannerRecipe[] }) {
 
                   return (
                     <div key={slot}>
-                      <p className="u-data-sm text-faint">{slot}</p>
+                      <p className="u-data-sm text-muted">{slot}</p>
 
                       <ul className="mt-1.5 space-y-1.5">
                         {meals.map((meal) => {
@@ -185,7 +185,7 @@ export function MealPlannerClient({ options }: { options: PlannerRecipe[] }) {
                                   type="button"
                                   onClick={() => removeMeal(meal.id)}
                                   aria-label={`Remove ${recipe.name} from ${day} ${slot.toLowerCase()}`}
-                                  className="grid size-6 shrink-0 place-items-center rounded-full text-faint transition-colors hover:bg-tomato-wash hover:text-tomato"
+                                  className="grid size-6 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-tomato-wash hover:text-tomato"
                                 >
                                   <X aria-hidden="true" className="size-3.5" />
                                 </button>
@@ -238,7 +238,7 @@ export function MealPlannerClient({ options }: { options: PlannerRecipe[] }) {
                           setPicker({ day: dayIndex, slot });
                           setTerm("");
                         }}
-                        className="mt-1.5 flex w-full items-center justify-center gap-1 rounded-xl border border-dashed border-line py-2 text-faint transition-colors hover:border-forest hover:text-forest"
+                        className="mt-1.5 flex w-full items-center justify-center gap-1 rounded-xl border border-dashed border-line py-2 text-muted transition-colors hover:border-forest hover:text-forest"
                         aria-label={`Add a recipe to ${day} ${slot.toLowerCase()}`}
                       >
                         <Plus aria-hidden="true" className="size-3.5" />
@@ -294,7 +294,7 @@ export function MealPlannerClient({ options }: { options: PlannerRecipe[] }) {
                 value={term}
                 onChange={(event) => setTerm(event.target.value)}
                 placeholder="Search by dish or country"
-                className="h-11 w-full rounded-full bg-paper px-4 text-[0.9375rem] text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-faint"
+                className="h-11 w-full rounded-full bg-paper px-4 text-[0.9375rem] text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-muted"
               />
             </div>
 

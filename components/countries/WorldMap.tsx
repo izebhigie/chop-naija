@@ -145,7 +145,7 @@ export function WorldMap({
         </g>
       </svg>
 
-      <figcaption className="u-data-sm mt-3 px-1 text-cream/45">
+      <figcaption className="u-data-sm mt-3 px-1 text-cream/60">
         Dot size reflects how many recipes each country has. Every country is also listed by
         region below.
       </figcaption>

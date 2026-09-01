@@ -149,7 +149,7 @@ export function RecipeWorkspace({ recipe }: { recipe: Recipe }) {
                               ) : null}
                               {!amount ? <span className="text-muted"> — to taste</span> : null}
                               {item.optional ? (
-                                <span className="u-data-sm ml-2 text-faint">optional</span>
+                                <span className="u-data-sm ml-2 text-muted">optional</span>
                               ) : null}
                             </span>
                           </label>

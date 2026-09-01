@@ -163,7 +163,7 @@ export function ShoppingListClient() {
           value={newItem}
           onChange={(event) => setNewItem(event.target.value)}
           placeholder="Add something else — kitchen roll, olive oil…"
-          className="h-12 flex-1 rounded-full bg-paper px-5 text-[0.9375rem] text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-faint"
+          className="h-12 flex-1 rounded-full bg-paper px-5 text-[0.9375rem] text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-muted"
         />
         <Button type="submit" disabled={!newItem.trim()}>
           <Plus aria-hidden="true" className="size-4" />
@@ -178,7 +178,7 @@ export function ShoppingListClient() {
               id={`aisle-${aisle}`}
               className="u-data border-b border-line pb-2 text-forest"
             >
-              {aisle} <span className="text-faint">({items.length})</span>
+              {aisle} <span className="text-muted">({items.length})</span>
             </h2>
 
             <ul className="mt-2 divide-y divide-line-soft">
@@ -245,11 +245,11 @@ export function ShoppingListClient() {
                           </button>
 
                           {item.sources.length ? (
-                            <p className="u-data-sm mt-0.5 text-faint">
+                            <p className="u-data-sm mt-0.5 text-muted">
                               for {item.sources.join(", ")}
                             </p>
                           ) : (
-                            <p className="u-data-sm mt-0.5 text-faint">added by you</p>
+                            <p className="u-data-sm mt-0.5 text-muted">added by you</p>
                           )}
                         </>
                       )}
@@ -260,7 +260,7 @@ export function ShoppingListClient() {
                         type="button"
                         onClick={() => removeItem(item.id)}
                         aria-label={`Remove ${item.name}`}
-                        className="grid size-8 shrink-0 place-items-center rounded-full text-faint transition-colors hover:bg-tomato-wash hover:text-tomato print-hide"
+                        className="grid size-8 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-tomato-wash hover:text-tomato print-hide"
                       >
                         <X aria-hidden="true" className="size-4" />
                       </button>

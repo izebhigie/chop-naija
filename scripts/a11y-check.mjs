@@ -128,6 +128,169 @@ check(
   `${motion.longTransitions} still animating`,
 );
 
+/* ------------------------------------------------------- colour contrast */
+
+/*
+ * Measured from what the browser actually painted, not from a list of token
+ * pairs. A hardcoded list only ever proves the combinations someone thought
+ * to write down, and the palette failure worth catching is the one nobody
+ * meant to create.
+ */
+{
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1280, height: 1000 });
+  const offenders = [];
+  let overImages = 0;
+
+  for (const route of ROUTES) {
+    await page.goto(`${BASE}${route}`, { waitUntil: "networkidle2" });
+    await new Promise((r) => setTimeout(r, 400));
+
+    const bad = await page.evaluate(() => {
+      /*
+       * Tailwind v4 computes alpha-modified colours through oklab, so
+       * getComputedStyle returns strings like
+       * "oklab(0.974 0.001 0.011 / 0.5)". Painting the value into a canvas and
+       * reading the pixel back lets the browser do the conversion, which works
+       * for every colour syntax rather than the ones a regex anticipates.
+       */
+      const probe = document.createElement("canvas");
+      probe.width = 1;
+      probe.height = 1;
+      const ctx = probe.getContext("2d", { willReadFrequently: true });
+      const parse = (value) => {
+        if (!value) return null;
+        ctx.clearRect(0, 0, 1, 1);
+        // An unparseable value leaves fillStyle untouched, so seed it with
+        // something transparent and treat that as "no colour".
+        ctx.fillStyle = "rgba(0, 0, 0, 0)";
+        ctx.fillStyle = value;
+        ctx.fillRect(0, 0, 1, 1);
+        const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+        return { r, g, b, a: a / 255 };
+      };
+      const over = (top, bottom) => ({
+        r: top.r * top.a + bottom.r * (1 - top.a),
+        g: top.g * top.a + bottom.g * (1 - top.a),
+        b: top.b * top.a + bottom.b * (1 - top.a),
+        a: 1,
+      });
+      const lin = (c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+      const lum = (c) =>
+        0.2126 * lin(c.r / 255) + 0.7152 * lin(c.g / 255) + 0.0722 * lin(c.b / 255);
+      const ratio = (a, b) => {
+        const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
+        return (hi + 0.05) / (lo + 0.05);
+      };
+
+      /** The colour actually behind an element, compositing every layer. */
+      function backdrop(el) {
+        const layers = [];
+        for (let node = el; node; node = node.parentElement) {
+          const style = getComputedStyle(node);
+          // A photo or gradient behind the text: not something a ratio can judge.
+          if (style.backgroundImage !== "none") return null;
+          const bg = parse(style.backgroundColor);
+          if (bg && bg.a > 0) {
+            layers.push(bg);
+            if (bg.a === 1) break;
+          }
+        }
+        let base = { r: 255, g: 255, b: 255, a: 1 };
+        for (const layer of layers.reverse()) base = over(layer, base);
+        return base;
+      }
+
+      /*
+       * Text laid over a photograph cannot be judged by walking ancestor
+       * background colours — the pixels behind it belong to an <img>. Those
+       * nodes are counted and reported rather than quietly passed.
+       */
+      const media = [...document.querySelectorAll("img, video, canvas")].map((el) =>
+        el.getBoundingClientRect(),
+      );
+      const overlapsMedia = (box) =>
+        media.some(
+          (m) =>
+            m.width > 0 &&
+            !(box.right <= m.left || box.left >= m.right || box.bottom <= m.top || box.top >= m.bottom),
+        );
+
+      const found = [];
+      let skipped = 0;
+      for (const el of document.querySelectorAll("body *")) {
+        // Only elements holding their own text, so a ratio is judged once.
+        const text = [...el.childNodes]
+          .filter((n) => n.nodeType === 3)
+          .map((n) => n.textContent.trim())
+          .join(" ")
+          .trim();
+        if (!text) continue;
+
+        /*
+         * SVG paints with `fill`, not `color`, and the map labels are
+         * deliberately transparent until hovered. Neither is something this
+         * measurement understands, so they are counted, not guessed at.
+         */
+        if (el.ownerSVGElement) {
+          skipped += 1;
+          continue;
+        }
+
+        const style = getComputedStyle(el);
+        if (style.visibility === "hidden" || style.display === "none") continue;
+        if (el.closest('[class*="sr-only"]') || style.clip === "rect(0px, 0px, 0px, 0px)") continue;
+        // Marked decorative, so it carries no information — the "/" between
+        // metadata items is drawn in the hairline colour on purpose.
+        if (el.closest('[aria-hidden="true"]')) continue;
+        const box = el.getBoundingClientRect();
+        if (box.width < 1 || box.height < 1) continue;
+
+        const colour = parse(style.color);
+        if (!colour || colour.a === 0) continue;
+
+        const behind = backdrop(el);
+        if (!behind || overlapsMedia(box)) {
+          skipped += 1;
+          continue;
+        }
+
+        const size = parseFloat(style.fontSize);
+        const weight = Number(style.fontWeight) || 400;
+        // WCAG large text: 24px, or 18.66px when bold.
+        const needed = size >= 24 || (size >= 18.66 && weight >= 700) ? 3 : 4.5;
+        const value = ratio(over(colour, behind), behind);
+
+        if (value + 0.005 < needed) {
+          found.push({
+            text: text.slice(0, 32),
+            ratio: Number(value.toFixed(2)),
+            needed,
+            size: Math.round(size),
+            colour: style.color,
+          });
+        }
+      }
+      return { found, skipped };
+    });
+
+    for (const item of bad.found) offenders.push({ route, ...item });
+    overImages += bad.skipped;
+  }
+
+  const worst = offenders.sort((a, b) => a.ratio - b.ratio).slice(0, 5);
+  check(
+    "Text meets WCAG AA contrast",
+    offenders.length === 0,
+    offenders.length
+      ? worst
+          .map((o) => `"${o.text}" ${o.ratio}:1 need ${o.needed} (${o.size}px, ${o.route})`)
+          .join(" | ")
+      : `every HTML text node measured; ${overImages} over photography or in SVG not judged`,
+  );
+  await page.close();
+}
+
 await browser.close();
 
 const failed = results.filter((ok) => !ok).length;

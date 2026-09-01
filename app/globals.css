@@ -20,13 +20,23 @@
   --color-cream-deep: #f1e9da;
   --color-paper: #ffffff;
 
-  /* Text */
+  /*
+     Text. Two levels, not three.
+     A third, lighter grey used to sit under --color-muted, but the lightest
+     grey that still clears 4.5:1 on cream *is* --color-muted, so it could
+     only ever be either redundant or unreadable. Tertiary text is set apart
+     by size and case instead — see .u-data-sm — which costs no contrast.
+  */
   --color-ink: #1b211d;
-  --color-muted: #6b7269;
-  --color-faint: #8f958c;
+  /* Darkened from #6b7269, which cleared 4.5:1 on cream but not on the
+     cream-deep bands, where it measured 4.11:1. This value clears every
+     surface it is used on — cream, cream-deep, paper and both washes. */
+  --color-muted: #626960;
 
   /* Accents, one job each */
-  --color-tomato: #c8452d;
+  /* Darkened from #c8452d, which measured 4.48:1 on cream and missed AA by
+     two hundredths — in favorites, error text and the cooking timer alike. */
+  --color-tomato: #c14229;
   --color-tomato-wash: #fbeeea;
   --color-saffron: #d9a227;
 

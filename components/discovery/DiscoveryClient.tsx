@@ -291,7 +291,7 @@ export function DiscoveryClient({
                   </p>
                 </div>
               ) : (
-                <p aria-live="polite" className="u-data mt-10 text-center text-faint">
+                <p aria-live="polite" className="u-data mt-10 text-center text-muted">
                   That is all {results.length} {results.length === 1 ? "recipe" : "recipes"}
                 </p>
               )}

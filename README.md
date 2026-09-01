@@ -54,6 +54,13 @@ today reads the local dataset through `services/adapters/localAdapter.ts`. Point
 real recipe API means writing one more adapter with the same shape and changing a single line —
 no page or component has to change.
 
+**Contrast is measured, not asserted.** `check:a11y` walks every rendered text node, composites
+the colour stack the browser actually painted, and compares it against the WCAG AA threshold for
+that font size. Text over photography and inside SVG cannot be judged this way, so it is counted
+and reported rather than quietly passed. A list of token pairs would only ever prove the
+combinations someone thought to write down — this caught `muted` failing on the `cream-deep`
+bands, which no hand-written pair list included.
+
 **Timers read the clock, they do not count down.** Each one stores the wall-clock moment it ends.
 Browsers throttle intervals in background tabs — sometimes to once a minute — so a timer built by
 decrementing a counter quietly loses minutes and comes back wrong. The flow test proves this by
@@ -185,7 +192,7 @@ The rest drive your installed Chrome via `puppeteer-core`, so **the dev server m
 npm run dev            # terminal 1
 
 npm run check:flows    # servings, units, favorites, shopping list, cooking mode, timers
-npm run check:a11y     # 320–1440px overflow, focus rings, alt text, reduced motion
+npm run check:a11y     # overflow, focus rings, alt text, reduced motion, contrast
 npm run check:console  # console errors and hydration mismatches per route
 npm run shoot recipes 390   # screenshot a route at a width → scripts/out/
 ```

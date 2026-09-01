@@ -204,7 +204,7 @@ export function FavoritesClient({ all }: { all: RecipeCardData[] }) {
                         "u-data-sm rounded-full px-2.5 py-1.5 ring-1 transition-colors",
                         inside
                           ? "bg-forest-wash text-forest ring-forest/25"
-                          : "bg-paper text-faint ring-line hover:text-ink",
+                          : "bg-paper text-muted ring-line hover:text-ink",
                       )}
                     >
                       {inside ? "✓ " : "+ "}

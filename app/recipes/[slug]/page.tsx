@@ -150,7 +150,7 @@ export default async function RecipePage(props: PageProps<"/recipes/[slug]">) {
                 <p className="u-script mt-2 text-lg text-muted">
                   {recipe.localName}
                   {recipe.localLanguage ? (
-                    <span className="u-data ml-2 text-faint">{recipe.localLanguage}</span>
+                    <span className="u-data ml-2 text-muted">{recipe.localLanguage}</span>
                   ) : null}
                 </p>
               ) : null}
@@ -199,7 +199,7 @@ export default async function RecipePage(props: PageProps<"/recipes/[slug]">) {
             />
           </div>
 
-          <p className="mt-3 text-xs text-faint">
+          <p className="mt-3 text-xs text-muted">
             Photograph: {recipe.image.author} /{" "}
             <a
               href={recipe.image.source}
@@ -267,7 +267,7 @@ export default async function RecipePage(props: PageProps<"/recipes/[slug]">) {
                       <p className="u-data mt-1 text-cream/50">{recipe.video.duration}</p>
                     </div>
                   </div>
-                  <p className="u-data-sm mt-2 text-faint">
+                  <p className="u-data-sm mt-2 text-muted">
                     Video is not available in this demo build
                   </p>
                 </div>
@@ -295,7 +295,7 @@ export default async function RecipePage(props: PageProps<"/recipes/[slug]">) {
                     </div>
                   ))}
                 </dl>
-                <p className="mt-4 text-xs text-faint">
+                <p className="mt-4 text-xs text-muted">
                   Estimated from the ingredient list at {recipe.servings} servings.
                 </p>
               </div>
@@ -332,7 +332,7 @@ export default async function RecipePage(props: PageProps<"/recipes/[slug]">) {
                   </>
                 ) : null}
 
-                <p className="mt-5 text-xs text-faint">
+                <p className="mt-5 text-xs text-muted">
                   Always check labels if you are cooking for someone with an allergy.
                 </p>
               </div>

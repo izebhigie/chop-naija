@@ -123,7 +123,7 @@ function CheckboxGroup({
             onChange={(event) => setTerm(event.target.value)}
             placeholder={`Search ${spec.title.toLowerCase()}`}
             aria-label={`Search within ${spec.title}`}
-            className="h-9 w-full rounded-full bg-cream pl-8 pr-3 text-sm text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-faint [&::-webkit-search-cancel-button]:appearance-none"
+            className="h-9 w-full rounded-full bg-cream pl-8 pr-3 text-sm text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-muted [&::-webkit-search-cancel-button]:appearance-none"
           />
         </div>
       ) : null}
@@ -162,7 +162,7 @@ function CheckboxGroup({
                 <span className="min-w-0 flex-1 truncate text-[0.9375rem] text-ink">
                   {option.label}
                 </span>
-                <span className="u-data-sm shrink-0 text-faint tabular-nums">{option.count}</span>
+                <span className="u-data-sm shrink-0 text-muted tabular-nums">{option.count}</span>
               </label>
             );
           })

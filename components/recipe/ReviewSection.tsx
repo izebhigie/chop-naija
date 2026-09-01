@@ -104,7 +104,7 @@ export function ReviewSection({
               value={name}
               onChange={(event) => setName(event.target.value)}
               placeholder="Optional"
-              className="h-11 rounded-full bg-cream px-4 text-[0.9375rem] text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-faint"
+              className="h-11 rounded-full bg-cream px-4 text-[0.9375rem] text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-muted"
             />
           </label>
 
@@ -117,7 +117,7 @@ export function ReviewSection({
               aria-describedby={error ? "review-error" : undefined}
               aria-invalid={Boolean(error)}
               placeholder="What worked, what you changed, what you would do differently."
-              className="rounded-2xl bg-cream px-4 py-3 text-[0.9375rem] text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-faint"
+              className="rounded-2xl bg-cream px-4 py-3 text-[0.9375rem] text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest placeholder:text-muted"
             />
           </label>
         </div>
@@ -167,7 +167,7 @@ export function ReviewSection({
             </div>
             <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink">{review.body}</p>
             {review.id.startsWith("local-") ? (
-              <p className="u-data-sm mt-3 text-faint">Saved on this device only</p>
+              <p className="u-data-sm mt-3 text-muted">Saved on this device only</p>
             ) : null}
           </li>
         ))}

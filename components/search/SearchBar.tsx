@@ -183,7 +183,7 @@ export function SearchBar({
             aria-controls={showList ? listId : undefined}
             aria-autocomplete="list"
             aria-activedescendant={active >= 0 ? `${listId}-opt-${active}` : undefined}
-            className="min-w-0 flex-1 bg-transparent text-[0.9375rem] text-ink outline-none placeholder:text-faint [&::-webkit-search-cancel-button]:appearance-none"
+            className="min-w-0 flex-1 bg-transparent text-[0.9375rem] text-ink outline-none placeholder:text-muted [&::-webkit-search-cancel-button]:appearance-none"
           />
           {loading ? (
             <Loader2 aria-hidden="true" className="size-4 shrink-0 animate-spin text-muted" />
