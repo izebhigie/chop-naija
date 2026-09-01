@@ -27,7 +27,9 @@ npm run lint
   filters for country, cuisine, meal type, main ingredient, diet, allergens, cooking method,
   time, difficulty and rating.
 - **Cook** — ingredients scale live with the serving count, switch between metric and US units,
-  and a full-screen cooking mode shows one step at a time and keeps the screen awake.
+  and a full-screen cooking mode shows one step at a time and keeps the screen awake. Steps that
+  have a duration can start a timer: they run in parallel, stay visible from any step, and ring
+  when they finish.
 - **Plan** — save favorites into collections, send ingredients to a shopping list grouped by
   supermarket aisle, and lay out a week of meals that turns into one consolidated list.
 
@@ -51,6 +53,12 @@ assets/         fonts used to render the social card (not shipped to browsers)
 today reads the local dataset through `services/adapters/localAdapter.ts`. Pointing the app at a
 real recipe API means writing one more adapter with the same shape and changing a single line —
 no page or component has to change.
+
+**Timers read the clock, they do not count down.** Each one stores the wall-clock moment it ends.
+Browsers throttle intervals in background tabs — sometimes to once a minute — so a timer built by
+decrementing a counter quietly loses minutes and comes back wrong. The flow test proves this by
+moving the page clock forward twenty minutes and checking the timer lands correctly, which is the
+same thing a throttled tab does.
 
 **Saved state is local.** Favorites, the shopping list and the meal plan persist to
 `localStorage`. Nothing reads storage during render — the first paint is always the empty state
@@ -167,7 +175,7 @@ reading the data.
 running:
 
 ```bash
-npm test               # 37 tests over lib/units.ts and lib/filters.ts
+npm test               # 40 tests over lib/units.ts and lib/filters.ts
 npm run check:map      # map geometry (no browser needed either)
 ```
 
@@ -176,7 +184,7 @@ The rest drive your installed Chrome via `puppeteer-core`, so **the dev server m
 ```bash
 npm run dev            # terminal 1
 
-npm run check:flows    # servings scaling, units, favorites, shopping list, cooking mode
+npm run check:flows    # servings, units, favorites, shopping list, cooking mode, timers
 npm run check:a11y     # 320–1440px overflow, focus rings, alt text, reduced motion
 npm run check:console  # console errors and hydration mismatches per route
 npm run shoot recipes 390   # screenshot a route at a width → scripts/out/
@@ -199,3 +207,6 @@ rewrites a bare `/` into a Windows path.
   instead. The links are removed from the tab order too, not just hidden.
 - Country outlines are 1:50m, which is a national-scale generalisation. It is the right
   resolution for locating a city, not for tracing a border.
+- Timers live for as long as cooking mode is open; closing it ends them. They also cannot ring
+  from a locked phone, which is why cooking mode asks to keep the screen awake. Where sound is
+  unavailable the timer says so rather than silently not ringing.

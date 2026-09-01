@@ -195,3 +195,19 @@ export function toIsoDuration(minutes: number): string {
   const rest = minutes % 60;
   return `PT${hours ? `${hours}H` : ""}${rest ? `${rest}M` : hours ? "" : "0M"}`;
 }
+
+/**
+ * A running countdown: "15:00", "1:05", "1:01:00".
+ *
+ * Seconds are always two digits so the number does not jump about as it
+ * counts down, which is distracting on a timer you are watching.
+ */
+export function formatClock(totalSeconds: number): string {
+  const safe = Math.max(0, Math.floor(totalSeconds));
+  const hours = Math.floor(safe / 3600);
+  const minutes = Math.floor((safe % 3600) / 60);
+  const seconds = safe % 60;
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  return hours ? `${hours}:${pad(minutes)}:${pad(seconds)}` : `${minutes}:${pad(seconds)}`;
+}

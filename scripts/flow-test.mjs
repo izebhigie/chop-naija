@@ -152,6 +152,139 @@ const stepTwo = await page.evaluate(
 );
 check("Arrow keys move between steps", stepTwo);
 
+/* ------------------------------------------------------------ step timers */
+
+// Back to step 1, which has a 15 minute simmer on it.
+await page.keyboard.press("ArrowLeft");
+await new Promise((r) => setTimeout(r, 300));
+
+const readClock = () =>
+  page.evaluate(() => {
+    const dialog = document.querySelector('[role="dialog"]');
+    const spans = [...(dialog?.querySelectorAll("span") ?? [])];
+    const clock = spans.find((el) => /^\d+:\d{2}$/.test(el.textContent?.trim() ?? ""));
+    return clock?.textContent?.trim() ?? "";
+  });
+
+const seconds = (clock) => {
+  const [m, s] = clock.split(":").map(Number);
+  return Number.isFinite(m) && Number.isFinite(s) ? m * 60 + s : NaN;
+};
+
+const timerLabel = await page.evaluate(() => {
+  const button = [...document.querySelectorAll("button")].find((el) =>
+    /^Start .+ timer$/.test(el.textContent?.trim() ?? ""),
+  );
+  if (!button) return "";
+  const label = button.textContent.trim();
+  button.click();
+  return label;
+});
+check("A step with a duration offers a timer", Boolean(timerLabel), timerLabel || "no button");
+
+await new Promise((r) => setTimeout(r, 1500));
+const firstClock = await readClock();
+await new Promise((r) => setTimeout(r, 1600));
+const secondClock = await readClock();
+check(
+  "The timer counts down",
+  seconds(secondClock) < seconds(firstClock),
+  `${firstClock} → ${secondClock}`,
+);
+
+await page.evaluate(() => {
+  document.querySelector('[aria-label="Pause timer"]')?.click();
+});
+const pausedAt = await readClock();
+await new Promise((r) => setTimeout(r, 1600));
+const stillPaused = await readClock();
+check("Pausing stops the clock", pausedAt === stillPaused, `${pausedAt} = ${stillPaused}`);
+
+await page.evaluate(() => {
+  document.querySelector('[aria-label="Resume timer"]')?.click();
+});
+await new Promise((r) => setTimeout(r, 200));
+const beforeExtend = seconds(await readClock());
+await page.evaluate(() => {
+  document.querySelector('[aria-label="Add a minute to the timer"]')?.click();
+});
+await new Promise((r) => setTimeout(r, 200));
+const afterExtend = seconds(await readClock());
+check(
+  "Adding a minute extends the timer",
+  afterExtend >= beforeExtend + 55,
+  `${beforeExtend}s → ${afterExtend}s`,
+);
+
+// The whole point of the footer bar: the sauce is still visible from step 3.
+await page.keyboard.press("ArrowRight");
+await page.keyboard.press("ArrowRight");
+await new Promise((r) => setTimeout(r, 400));
+const carried = await page.evaluate(() => {
+  const dialog = document.querySelector('[role="dialog"]');
+  const onStep = dialog?.textContent?.includes("Step 3 of") ?? false;
+  const chip = [...(dialog?.querySelectorAll("button") ?? [])].find((el) =>
+    /^Step 1 · \d+:\d{2}/.test(el.textContent?.trim() ?? ""),
+  );
+  return { onStep, chip: chip?.textContent?.trim() ?? "" };
+});
+check(
+  "A running timer stays visible from other steps",
+  carried.onStep && Boolean(carried.chip),
+  carried.chip || "no chip",
+);
+
+await page.evaluate(() => {
+  const chip = [...document.querySelectorAll("button")].find((el) =>
+    /^Step 1 · \d+:\d{2}/.test(el.textContent?.trim() ?? ""),
+  );
+  chip?.click();
+});
+await new Promise((r) => setTimeout(r, 300));
+const jumped = await page.evaluate(
+  () => document.querySelector('[role="dialog"]')?.textContent?.includes("Step 1 of") ?? false,
+);
+check("Selecting a running timer jumps back to its step", jumped);
+
+/*
+ * Reaching zero is the whole point, and waiting sixteen real minutes for it
+ * is not a test. Because timers are measured against the wall clock rather
+ * than counted down, moving the clock forward is enough to land on the
+ * deadline — which is also a fair simulation of a throttled background tab
+ * that misses every tick until it is foregrounded again.
+ */
+await page.evaluate(() => {
+  const real = Date.now.bind(Date);
+  Date.now = () => real() + 20 * 60 * 1000;
+});
+await new Promise((r) => setTimeout(r, 900));
+
+const finished = await page.evaluate(() => {
+  const dialog = document.querySelector('[role="dialog"]');
+  return {
+    shown: dialog?.textContent?.includes("Time is up") ?? false,
+    announced: document.querySelector('[role="alert"]')?.textContent?.trim() ?? "",
+  };
+});
+check("The timer reports when it runs out", finished.shown);
+check(
+  "Finishing is announced, not only chimed",
+  /Step 1 timer finished/.test(finished.announced),
+  finished.announced || "nothing announced",
+);
+
+await page.evaluate(() => {
+  const button =
+    document.querySelector('[aria-label="Dismiss timer"]') ??
+    document.querySelector('[aria-label="Cancel timer"]');
+  button?.click();
+});
+await new Promise((r) => setTimeout(r, 300));
+const cleared = await page.evaluate(
+  () => !(document.querySelector('[role="dialog"]')?.textContent?.includes("Time is up") ?? false),
+);
+check("Dismissing removes the timer", cleared);
+
 await page.keyboard.press("Escape");
 await new Promise((r) => setTimeout(r, 300));
 const closed = await page.evaluate(() => !document.querySelector('[role="dialog"]'));

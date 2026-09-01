@@ -6,6 +6,7 @@ import {
   formatDuration,
   formatDurationShort,
   toIsoDuration,
+  formatClock,
 } from "@/lib/units";
 
 /**
@@ -117,5 +118,23 @@ describe("durations", () => {
     expect(toIsoDuration(60)).toBe("PT1H");
     expect(toIsoDuration(85)).toBe("PT1H25M");
     expect(toIsoDuration(0)).toBe("PT0M");
+  });
+});
+
+describe("formatClock", () => {
+  it("keeps seconds two digits so the number does not jump", () => {
+    expect(formatClock(900)).toBe("15:00");
+    expect(formatClock(65)).toBe("1:05");
+    expect(formatClock(5)).toBe("0:05");
+  });
+
+  it("shows hours only when there are hours", () => {
+    expect(formatClock(3660)).toBe("1:01:00");
+    expect(formatClock(3599)).toBe("59:59");
+  });
+
+  it("never counts below zero", () => {
+    // A late interval tick can arrive after the deadline has passed.
+    expect(formatClock(-30)).toBe("0:00");
   });
 });
