@@ -252,14 +252,14 @@ export function DiscoveryClient({
             <EmptyState
               icon={<Search className="size-8" strokeWidth={1.5} />}
               title="No recipes match these filters"
-              body="Try removing the cooking time or a dietary filter — those narrow things down fastest."
+              body="Try removing the cooking time or a dietary filter — those narrow things down fastest. Or start from the other end and say what is already in your kitchen."
               action={
                 <>
                   <Button variant="secondary" onClick={clearAll}>
                     Clear all filters
                   </Button>
-                  <ButtonLink href="/recipes" variant="primary">
-                    Browse all {total} recipes
+                  <ButtonLink href="/cook-with" variant="primary">
+                    Cook with what you have
                   </ButtonLink>
                 </>
               }

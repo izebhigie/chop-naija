@@ -25,6 +25,7 @@ const COLUMNS = [
   {
     title: "Your kitchen",
     links: [
+      { href: "/cook-with", label: "What can I cook?" },
       { href: "/favorites", label: "Favorites" },
       { href: "/shopping-list", label: "Shopping list" },
       { href: "/meal-planner", label: "Meal planner" },

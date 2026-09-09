@@ -30,6 +30,9 @@ npm run lint
   and a full-screen cooking mode shows one step at a time and keeps the screen awake. Steps that
   have a duration can start a timer: they run in parallel, stay visible from any step, and ring
   when they finish.
+- **Cook with what you have** — say what is in your kitchen and the catalogue reorders by how
+  little you would have to go and buy, naming what each recipe is still missing. Nothing is
+  filtered away; the ranking does the work.
 - **Plan** — save favorites into collections, send ingredients to a shopping list grouped by
   supermarket aisle, and lay out a week of meals that turns into one consolidated list.
 
@@ -41,7 +44,8 @@ Every filter lives in the URL, so a filtered view can be bookmarked or shared:
 ```
 app/            routes (App Router) + two small API routes
 components/     ui/ · layout/ · recipe/ · discovery/ · home/ · search/
-data/           recipes, countries, cuisines, regions, reviews, generated map geometry
+data/           recipes, countries, cuisines, regions, reviews, pantry vocabulary,
+                generated map geometry
 services/       recipeService + a swappable adapter
 hooks/          useAppStore — favorites, shopping list, meal plan
 lib/            types, units, filters, formatting
@@ -60,6 +64,14 @@ that font size. Text over photography and inside SVG cannot be judged this way, 
 and reported rather than quietly passed. A list of token pairs would only ever prove the
 combinations someone thought to write down — this caught `muted` failing on the `cream-deep`
 bands, which no hand-written pair list included.
+
+**The pantry vocabulary is curated, and the vetoes are the point.** Recipe ingredients are written
+the way a cook writes them, so matching a kitchen against them needs a canonical list in between.
+Substring matching is what lets one entry named "rice" cover seven kinds of rice — and it is also
+what makes it cover flat rice noodles, "butter" cover butter beans, "olive" cover olive oil and
+"lemon" cover lemongrass. Every `except` in `data/pantry.ts` stands for a wrong answer this gave
+before someone read the output; `tests/pantry.test.ts` keeps each one from coming back. The
+strangest was `Parmigiano Reggiano`, which contains "egg".
 
 **Timers read the clock, they do not count down.** Each one stores the wall-clock moment it ends.
 Browsers throttle intervals in background tabs — sometimes to once a minute — so a timer built by
@@ -182,7 +194,7 @@ reading the data.
 running:
 
 ```bash
-npm test               # 40 tests over lib/units.ts and lib/filters.ts
+npm test               # 60 tests over lib/units.ts, lib/filters.ts and lib/pantry.ts
 npm run check:map      # map geometry (no browser needed either)
 ```
 
@@ -191,7 +203,7 @@ The rest drive your installed Chrome via `puppeteer-core`, so **the dev server m
 ```bash
 npm run dev            # terminal 1
 
-npm run check:flows    # servings, units, favorites, shopping list, cooking mode, timers
+npm run check:flows    # servings, units, favorites, list, cooking mode, timers, pantry
 npm run check:a11y     # overflow, focus rings, alt text, reduced motion, contrast
 npm run check:console  # console errors and hydration mismatches per route
 npm run shoot recipes 390   # screenshot a route at a width → scripts/out/
@@ -214,6 +226,9 @@ rewrites a bare `/` into a Windows path.
   instead. The links are removed from the tab order too, not just hidden.
 - Country outlines are 1:50m, which is a national-scale generalisation. It is the right
   resolution for locating a city, not for tracing a border.
+- The pantry list is what a kitchen usually keeps, not every ingredient in the catalogue. Berbere,
+  gochujang and preserved lemon are deliberately not selectable — a dish that needs them should
+  say so rather than let you claim you have them.
 - Timers live for as long as cooking mode is open; closing it ends them. They also cannot ring
   from a locked phone, which is why cooking mode asks to keep the screen awake. Where sound is
   unavailable the timer says so rather than silently not ringing.

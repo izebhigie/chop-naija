@@ -9,7 +9,17 @@
 import puppeteer from "puppeteer-core";
 
 const BASE = "http://localhost:3000";
-const ROUTES = ["/", "/recipes", "/recipes/jollof-rice", "/countries", "/meal-planner", "/shopping-list"];
+const ROUTES = [
+  "/",
+  "/recipes",
+  "/recipes/jollof-rice",
+  "/countries",
+  "/meal-planner",
+  "/shopping-list",
+  // With a kitchen selected, so the results and their coverage strips are
+  // actually on the page when contrast and overflow are measured.
+  "/cook-with?have=chicken,onion,tomato,rice",
+];
 const WIDTHS = [320, 390, 768, 1024, 1440];
 
 const results = [];

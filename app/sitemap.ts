@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: absoluteUrl("/"), changeFrequency: "weekly", priority: 1 },
     { url: absoluteUrl("/recipes"), changeFrequency: "weekly", priority: 0.9 },
+    { url: absoluteUrl("/cook-with"), changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/countries"), changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/cuisines"), changeFrequency: "monthly", priority: 0.7 },
     ...catalogue,

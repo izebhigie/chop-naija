@@ -290,6 +290,95 @@ await new Promise((r) => setTimeout(r, 300));
 const closed = await page.evaluate(() => !document.querySelector('[role="dialog"]'));
 check("Escape closes cooking mode", closed);
 
+/* ------------------------------------------------------ cook with what you have */
+
+await page.goto(`${BASE}/cook-with`, { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+
+const pressChip = (label) =>
+  page.evaluate((wanted) => {
+    const button = [...document.querySelectorAll("button[aria-pressed]")].find(
+      (el) => el.textContent.trim() === wanted,
+    );
+    button?.click();
+    return Boolean(button);
+  }, label);
+
+const readResults = () =>
+  page.evaluate(() => {
+    const heading = document.querySelector("#results-heading")?.textContent?.trim() ?? "";
+    const strips = [...document.querySelectorAll("li > div")]
+      .map((el) => el.textContent?.trim() ?? "")
+      .filter((text) => /^(Ready to cook|You have \d+ of \d+)/.test(text));
+    return { heading, cards: strips.length, first: strips[0] ?? "" };
+  });
+
+const empty = await page.evaluate(() =>
+  document.body.textContent.includes("Say what you have and this fills up"),
+);
+check("An empty kitchen asks rather than showing everything", empty);
+
+for (const label of ["Chicken", "Onions", "Tomatoes", "Rice"]) await pressChip(label);
+await new Promise((r) => setTimeout(r, 600));
+
+const matched = await readResults();
+check(
+  "Choosing ingredients ranks recipes by what is missing",
+  matched.cards > 0 && /uses? something you have/.test(matched.heading),
+  `${matched.cards} cards — ${matched.heading.slice(0, 48)}`,
+);
+
+// The counts on each card have to agree with each other, or the feature lies.
+const consistent = await page.evaluate(() => {
+  const strips = [...document.querySelectorAll("li > div")]
+    .map((el) => el.textContent?.trim() ?? "")
+    .filter((t) => t.startsWith("You have "));
+  return strips.every((text) => {
+    const [, have, total] = text.match(/You have (\d+) of (\d+)/) ?? [];
+    const named = (text.match(/Still need: ([^]*?)Add /)?.[1] ?? "").split("·").filter((s) => s.trim());
+    return Number(total) - Number(have) === named.length;
+  });
+});
+check("Every card's missing list matches its own count", consistent);
+
+const shareable = await page.evaluate(() => new URL(location.href).searchParams.get("have"));
+check(
+  "The kitchen is carried in the URL",
+  Boolean(shareable) && shareable.split(",").length === 4,
+  shareable ?? "no param",
+);
+
+// Ordering: fewest still to buy comes first.
+const ordered = await page.evaluate(() => {
+  const counts = [...document.querySelectorAll("li > div")]
+    .map((el) => el.textContent?.trim() ?? "")
+    .filter((t) => /^(Ready to cook|You have \d+ of \d+)/.test(t))
+    .map((t) => {
+      if (t.startsWith("Ready")) return 0;
+      const [, have, total] = t.match(/You have (\d+) of (\d+)/);
+      return Number(total) - Number(have);
+    });
+  return counts.every((n, i) => i === 0 || counts[i - 1] <= n);
+});
+check("The closest recipes come first", ordered);
+
+await page.evaluate(() => {
+  const box = [...document.querySelectorAll('input[type="checkbox"]')].at(-1);
+  box?.click();
+});
+await new Promise((r) => setTimeout(r, 400));
+const readyOnly = await page.evaluate(() => {
+  const strips = [...document.querySelectorAll("li > div")]
+    .map((el) => el.textContent?.trim() ?? "")
+    .filter((t) => /^(Ready to cook|You have \d+ of \d+)/.test(t));
+  const emptyState = document.body.textContent.includes("Nothing is fully within reach yet");
+  return { onlyReady: strips.every((t) => t.startsWith("Ready to cook")), emptyState };
+});
+check(
+  "'Only what I can make now' hides anything still missing something",
+  readyOnly.onlyReady || readyOnly.emptyState,
+);
+
 /* -------------------------------------------------------------- search */
 
 await page.goto(`${BASE}/`, { waitUntil: "networkidle2" });
