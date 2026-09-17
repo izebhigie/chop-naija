@@ -379,6 +379,107 @@ check(
   readyOnly.onlyReady || readyOnly.emptyState,
 );
 
+/* ------------------------------------------------------------ swaps */
+
+// Start from an empty shopping list, so what arrives there is only this swap's doing.
+await page.goto(`${BASE}/recipes/jollof-rice`, { waitUntil: "networkidle2" });
+await page.evaluate(() => localStorage.clear());
+await page.reload({ waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+
+const ingredientText = () =>
+  page.evaluate(() => {
+    const heading = document.getElementById("ingredients-heading");
+    return heading?.closest("section")?.textContent ?? "";
+  });
+
+await page.evaluate(() => {
+  document
+    .querySelector('[aria-label="Use smoked paprika instead of ground crayfish"]')
+    ?.click();
+});
+await new Promise((r) => setTimeout(r, 300));
+const afterSwap = await ingredientText();
+check(
+  "A swap rewrites the ingredient line, with the amount it states",
+  /1 tsp\s*Smoked paprika/.test(afterSwap) && !/Ground crayfish/.test(afterSwap.replace(/instead of ground crayfish/i, "")),
+  afterSwap.match(/1 tsp\s*Smoked paprika[^,]{0,40}/)?.[0] ?? "no paprika line",
+);
+check(
+  "The swapped line says what it replaced",
+  /instead of ground crayfish/i.test(afterSwap),
+);
+check(
+  "The page says allergens and nutrition still describe the original",
+  /1 swap applied/.test(afterSwap) && /Allergens, nutrition and the method/.test(afterSwap),
+);
+
+// Doubling the servings has to scale the substitute like any other line.
+for (let i = 0; i < 6; i += 1) {
+  await page.evaluate(() => {
+    document.querySelector('[aria-label="More servings"]')?.click();
+  });
+}
+await new Promise((r) => setTimeout(r, 300));
+check(
+  "A swapped amount scales with the servings",
+  /2 tsp\s*Smoked paprika/.test(await ingredientText()),
+);
+
+await page.evaluate(() => {
+  [...document.querySelectorAll("button")]
+    .find((b) => b.textContent?.includes("Add ingredients to shopping list"))
+    ?.click();
+});
+await new Promise((r) => setTimeout(r, 400));
+await page.goto(`${BASE}/shopping-list`, { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+const listAfterSwap = await page.evaluate(() => document.querySelector("main")?.textContent ?? "");
+check(
+  "The shopping list gets the substitute, not the original",
+  /Smoked paprika/.test(listAfterSwap) && !/Ground crayfish/.test(listAfterSwap),
+);
+
+await page.goto(`${BASE}/recipes/jollof-rice`, { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+await page.evaluate(() => {
+  document
+    .querySelector('[aria-label="Use vegetable stock instead of chicken stock"]')
+    ?.click();
+});
+await new Promise((r) => setTimeout(r, 200));
+await page.evaluate(() => {
+  [...document.querySelectorAll("button")].find((b) => b.textContent?.trim() === "Undo all")?.click();
+});
+await new Promise((r) => setTimeout(r, 300));
+const undone = await ingredientText();
+check(
+  "Undo all restores the original list",
+  /Chicken stock/.test(undone) && !/Vegetable stock/.test(undone) && !/swap applied/.test(undone),
+);
+
+await page.goto(`${BASE}/recipes/shakshuka`, { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+await page.evaluate(() => {
+  document.querySelector('[aria-label="Leave out feta"]')?.click();
+});
+await new Promise((r) => setTimeout(r, 300));
+const leftOut = await page.evaluate(() => {
+  const heading = document.getElementById("ingredients-heading");
+  const items = [...(heading?.closest("section")?.querySelectorAll("li") ?? [])];
+  const feta = items.find((li) => li.textContent?.includes("Feta"));
+  return {
+    struck: Boolean(feta?.querySelector(".line-through")),
+    labelled: /left out/i.test(feta?.textContent ?? ""),
+    checkbox: Boolean(feta?.querySelector("input")),
+  };
+});
+check(
+  "A left-out ingredient stays visible, struck through, with nothing to tick",
+  leftOut.struck && leftOut.labelled && !leftOut.checkbox,
+  JSON.stringify(leftOut),
+);
+
 /* -------------------------------------------------------------- search */
 
 await page.goto(`${BASE}/`, { waitUntil: "networkidle2" });

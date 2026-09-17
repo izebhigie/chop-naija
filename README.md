@@ -29,7 +29,9 @@ npm run lint
 - **Cook** — ingredients scale live with the serving count, switch between metric and US units,
   and a full-screen cooking mode shows one step at a time and keeps the screen awake. Steps that
   have a duration can start a timer: they run in parallel, stay visible from any step, and ring
-  when they finish.
+  when they finish. Every recipe's substitutions can be applied, and the ingredient list and
+  shopping list change to match — including swaps that change the amount or use several
+  ingredients.
 - **Cook with what you have** — say what is in your kitchen and the catalogue reorders by how
   little you would have to go and buy, naming what each recipe is still missing. Nothing is
   filtered away; the ranking does the work.
@@ -72,6 +74,12 @@ what makes it cover flat rice noodles, "butter" cover butter beans, "olive" cove
 "lemon" cover lemongrass. Every `except` in `data/pantry.ts` stands for a wrong answer this gave
 before someone read the output; `tests/pantry.test.ts` keeps each one from coming back. The
 strangest was `Parmigiano Reggiano`, which contains "egg".
+
+**Swaps name the lines they replace.** Each substitution carries the ingredient ids it replaces
+and exactly what goes on the list instead, rather than being matched by name. Name matching was
+wrong in the first place anyone would look: in khoresh fesenjan, "Chicken" also matches the
+chicken stock. A swap with no stated amount uses the amount of the line it replaces; one that
+replaces several lines must state its amounts, which `tests/swaps.test.ts` enforces across all 78.
 
 **Timers read the clock, they do not count down.** Each one stores the wall-clock moment it ends.
 Browsers throttle intervals in background tabs — sometimes to once a minute — so a timer built by
@@ -194,7 +202,7 @@ reading the data.
 running:
 
 ```bash
-npm test               # 60 tests over lib/units.ts, lib/filters.ts and lib/pantry.ts
+npm test               # 74 tests over units, filters, the pantry matcher and swaps
 npm run check:map      # map geometry (no browser needed either)
 ```
 
@@ -203,7 +211,7 @@ The rest drive your installed Chrome via `puppeteer-core`, so **the dev server m
 ```bash
 npm run dev            # terminal 1
 
-npm run check:flows    # servings, units, favorites, list, cooking mode, timers, pantry
+npm run check:flows    # servings, units, favorites, list, cooking mode, timers, pantry, swaps
 npm run check:a11y     # overflow, focus rings, alt text, reduced motion, contrast
 npm run check:console  # console errors and hydration mismatches per route
 npm run shoot recipes 390   # screenshot a route at a width → scripts/out/
@@ -229,6 +237,9 @@ rewrites a bare `/` into a Windows path.
 - The pantry list is what a kitchen usually keeps, not every ingredient in the catalogue. Berbere,
   gochujang and preserved lemon are deliberately not selectable — a dish that needs them should
   say so rather than let you claim you have them.
+- Swaps change the ingredient list and the shopping list, not the method, allergens or nutrition,
+  and the page says so while one is applied. Swap amounts are a cook's judgement, not a tested
+  conversion. Swaps are not remembered between visits.
 - Timers live for as long as cooking mode is open; closing it ends them. They also cannot ring
   from a locked phone, which is why cooking mode asks to keep the screen awake. Where sound is
   unavailable the timer says so rather than silently not ringing.

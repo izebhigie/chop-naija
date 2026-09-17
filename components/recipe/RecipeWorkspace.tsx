@@ -1,9 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Minus, Plus, ShoppingBasket, PlayCircle, Lightbulb, Check } from "lucide-react";
+import {
+  Minus,
+  Plus,
+  ShoppingBasket,
+  PlayCircle,
+  Lightbulb,
+  Check,
+  ArrowRightLeft,
+  Undo2,
+} from "lucide-react";
 import type { Recipe } from "@/lib/types";
 import { formatQuantity, scaleQuantity, formatDuration, type UnitSystem } from "@/lib/units";
+import { applySwaps } from "@/lib/swaps";
 import { cx } from "@/lib/format";
 import { useAppStore } from "@/hooks/useAppStore";
 import { CookingMode } from "./CookingMode";
@@ -25,17 +35,40 @@ export function RecipeWorkspace({ recipe }: { recipe: Recipe }) {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [cooking, setCooking] = useState(false);
   const [status, setStatus] = useState("");
+  /** Indices into recipe.substitutions that are switched on. */
+  const [active, setActive] = useState<number[]>([]);
+  const [swapStatus, setSwapStatus] = useState("");
 
-  const totalItems = useMemo(
-    () => recipe.ingredientGroups.reduce((sum, group) => sum + group.items.length, 0),
-    [recipe.ingredientGroups],
-  );
-  const checkedCount = Object.values(checked).filter(Boolean).length;
+  const swapped = useMemo(() => applySwaps(recipe, active), [recipe, active]);
+
+  const listed = swapped.groups.flatMap((group) => group.items);
+  const totalItems = listed.filter((item) => !item.leftOut).length;
+  // Only count ticks on lines still on the list; a swapped-out line's tick
+  // would otherwise inflate "gathered" for something no longer needed.
+  const checkedCount = listed.filter((item) => !item.leftOut && checked[item.id]).length;
 
   function addToList() {
-    const count = addRecipeToList(recipe, servings);
+    const count = addRecipeToList(swapped.recipe, servings);
+    const swaps = active.length
+      ? `, with ${active.length} ${active.length === 1 ? "swap" : "swaps"}`
+      : "";
     setStatus(
-      `${count} ingredients from ${recipe.name} added to your shopping list, for ${servings} servings.`,
+      `${count} ingredients from ${recipe.name} added to your shopping list, for ${servings} servings${swaps}.`,
+    );
+  }
+
+  function toggleSwap(index: number) {
+    const swap = recipe.substitutions[index];
+    const on = !active.includes(index);
+    setActive((current) =>
+      on ? [...current, index] : current.filter((value) => value !== index),
+    );
+    setSwapStatus(
+      on
+        ? swap.use.length
+          ? `${swap.from} swapped for ${swap.use.map((use) => use.name.toLowerCase()).join(" and ")} in the ingredient list.`
+          : `${swap.from} left out of the ingredient list.`
+        : `${swap.from} is back in the ingredient list.`,
     );
   }
 
@@ -105,8 +138,30 @@ export function RecipeWorkspace({ recipe }: { recipe: Recipe }) {
               </p>
             ) : null}
 
+            {active.length ? (
+              <div className="mt-4 flex flex-col gap-2 rounded-xl bg-forest-wash px-4 py-3 sm:flex-row sm:items-start sm:justify-between sm:gap-3 print-hide">
+                <p className="text-sm text-forest">
+                  <span className="font-semibold">
+                    {active.length} {active.length === 1 ? "swap" : "swaps"} applied.
+                  </span>{" "}
+                  Allergens, nutrition and the method still describe the original recipe.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActive([]);
+                    setSwapStatus("All swaps undone. The ingredient list is back to the original.");
+                  }}
+                  className="-ml-2 inline-flex shrink-0 items-center gap-1.5 self-start rounded-full px-2 py-1 text-sm font-semibold text-forest underline-offset-4 hover:underline sm:ml-0"
+                >
+                  <Undo2 aria-hidden="true" className="size-3.5" />
+                  Undo all
+                </button>
+              </div>
+            ) : null}
+
             <div className="mt-6 space-y-6">
-              {recipe.ingredientGroups.map((group) => (
+              {swapped.groups.map((group) => (
                 <div key={group.title}>
                   <h3 className="u-data text-forest">{group.title}</h3>
                   <ul className="mt-3 space-y-1">
@@ -114,6 +169,21 @@ export function RecipeWorkspace({ recipe }: { recipe: Recipe }) {
                       const scaled = scaleQuantity(item.qty, recipe.servings, servings);
                       const amount = formatQuantity(scaled, item.unit, system);
                       const isChecked = Boolean(checked[item.id]);
+
+                      if (item.leftOut) {
+                        return (
+                          <li key={item.id} className="flex items-baseline gap-3 px-2 py-2">
+                            <span aria-hidden="true" className="size-4 shrink-0" />
+                            <span className="min-w-0 flex-1 text-[0.9375rem] text-muted">
+                              <span className="line-through">
+                                {amount ? `${amount} ` : ""}
+                                {item.name}
+                              </span>
+                              <span className="u-data-sm ml-2 text-forest">left out</span>
+                            </span>
+                          </li>
+                        );
+                      }
 
                       return (
                         <li key={item.id}>
@@ -151,6 +221,11 @@ export function RecipeWorkspace({ recipe }: { recipe: Recipe }) {
                               {item.optional ? (
                                 <span className="u-data-sm ml-2 text-muted">optional</span>
                               ) : null}
+                              {item.swappedFrom ? (
+                                <span className="u-data-sm ml-2 text-forest">
+                                  instead of {item.swappedFrom.toLowerCase()}
+                                </span>
+                              ) : null}
                             </span>
                           </label>
                         </li>
@@ -168,7 +243,9 @@ export function RecipeWorkspace({ recipe }: { recipe: Recipe }) {
             <button
               type="button"
               onClick={addToList}
-              className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-forest font-semibold text-cream transition-colors hover:bg-forest-mid print-hide"
+              // min-h rather than h: on a 320px phone the label wraps to two
+              // lines, and a fixed height let it spill out of the button.
+              className="mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-forest px-5 py-3 text-center leading-snug font-semibold text-cream transition-colors hover:bg-forest-mid print-hide"
             >
               <ShoppingBasket aria-hidden="true" className="size-4" />
               Add ingredients to shopping list
@@ -253,16 +330,55 @@ export function RecipeWorkspace({ recipe }: { recipe: Recipe }) {
           {recipe.substitutions.length ? (
             <div className="mt-6 rounded-[var(--radius-card)] bg-paper p-6 ring-1 ring-line-soft">
               <h3 className="u-data text-forest">Swaps that work</h3>
-              <dl className="mt-4 divide-y divide-line-soft">
-                {recipe.substitutions.map((swap) => (
-                  <div key={swap.from} className="py-3 first:pt-0 last:pb-0">
-                    <dt className="text-[0.9375rem] font-semibold text-ink">
-                      {swap.from} → {swap.to}
-                    </dt>
-                    <dd className="mt-1 text-[0.9375rem] text-muted">{swap.why}</dd>
-                  </div>
-                ))}
-              </dl>
+              <p className="mt-2 text-sm text-muted print-hide">
+                Use one and the ingredient list and shopping list change to match.
+              </p>
+              <ul className="mt-4 divide-y divide-line-soft">
+                {recipe.substitutions.map((swap, index) => {
+                  const on = active.includes(index);
+                  return (
+                    <li
+                      key={swap.from}
+                      className="flex flex-col gap-3 py-4 first:pt-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-[0.9375rem] font-semibold text-ink">
+                          {swap.from} → {swap.to}
+                        </p>
+                        <p className="mt-1 text-[0.9375rem] text-muted">{swap.why}</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => toggleSwap(index)}
+                        aria-pressed={on}
+                        aria-label={
+                          on
+                            ? `Undo swap: put ${swap.from.toLowerCase()} back`
+                            : swap.use.length
+                              ? `Use ${swap.use.map((use) => use.name.toLowerCase()).join(" and ")} instead of ${swap.from.toLowerCase()}`
+                              : `Leave out ${swap.from.toLowerCase()}`
+                        }
+                        className={cx(
+                          "inline-flex h-9 shrink-0 items-center gap-1.5 self-start rounded-full px-4 text-sm font-semibold transition-colors print-hide",
+                          on
+                            ? "bg-forest text-cream hover:bg-forest-mid"
+                            : "bg-cream text-forest ring-1 ring-line hover:bg-forest-wash",
+                        )}
+                      >
+                        {on ? (
+                          <Check aria-hidden="true" className="size-3.5" />
+                        ) : (
+                          <ArrowRightLeft aria-hidden="true" className="size-3.5" />
+                        )}
+                        {on ? "Swapped" : swap.use.length ? "Use this swap" : "Leave it out"}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              <p aria-live="polite" className="u-data-sm mt-4 text-forest print-hide">
+                {swapStatus}
+              </p>
             </div>
           ) : null}
         </section>

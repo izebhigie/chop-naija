@@ -127,10 +127,29 @@ export interface Author {
   initials: string;
 }
 
+/** One ingredient that goes on the list when a swap is applied. */
+export interface SwapItem {
+  name: string;
+  /** Leave amount and unit out to use the same amount as the ingredient it replaces. */
+  qty?: number | null;
+  unit?: Unit;
+  aisle?: Aisle;
+  note?: string;
+}
+
 export interface Substitution {
+  /** How the swap is described to a reader. */
   from: string;
   to: string;
   why: string;
+  /**
+   * The ingredient ids this swap replaces. Explicit rather than matched by
+   * name: "Chicken" in khoresh fesenjan names the thighs, but a name match
+   * also catches the chicken stock.
+   */
+  replaces: string[];
+  /** What goes on the list instead. Empty means the ingredient is left out. */
+  use: SwapItem[];
 }
 
 /** Photograph credit. Every image in the app carries one. */
