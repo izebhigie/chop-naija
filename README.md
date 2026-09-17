@@ -35,6 +35,9 @@ npm run lint
 - **Cook with what you have** — say what is in your kitchen and the catalogue reorders by how
   little you would have to go and buy, naming what each recipe is still missing. Nothing is
   filtered away; the ranking does the work.
+- **Offline** — every recipe you open is kept on the device, so it reloads with no connection —
+  photos, swaps, cooking mode and timers included. Asking for a page that was never saved lands
+  on a list of the ones that were.
 - **Plan** — save favorites into collections, send ingredients to a shopping list grouped by
   supermarket aisle, and lay out a week of meals that turns into one consolidated list.
 
@@ -80,6 +83,16 @@ and exactly what goes on the list instead, rather than being matched by name. Na
 wrong in the first place anyone would look: in khoresh fesenjan, "Chicken" also matches the
 chicken stock. A swap with no stated amount uses the amount of the line it replaces; one that
 replaces several lines must state its amounts, which `tests/swaps.test.ts` enforces across all 78.
+
+**The service worker is hand-written, and the offline check kills the server.** `public/sw.js` is
+one readable file: pages network-first with a saved copy used if the network fails or stalls for
+four seconds, hashed build assets cache-first, photos stale-while-revalidate, RSC payloads left
+alone. Most visits reach a recipe by tapping a card, which is a soft navigation that never
+requests the page's HTML — so the app posts each page it lands on to the worker to save.
+`check:offline` does not use DevTools' offline toggle, which a service worker's own fetches can
+bypass; it starts a production server, browses, kills the server, and then checks. It ends with a
+control run where the worker never registers, and requires that one to fail, so a pass cannot
+come from the browser's HTTP cache.
 
 **Timers read the clock, they do not count down.** Each one stores the wall-clock moment it ends.
 Browsers throttle intervals in background tabs — sometimes to once a minute — so a timer built by
@@ -206,6 +219,13 @@ npm test               # 74 tests over units, filters, the pantry matcher and sw
 npm run check:map      # map geometry (no browser needed either)
 ```
 
+The offline check runs against its own production server, so it needs a build rather than
+`npm run dev`:
+
+```bash
+npm run build && npm run check:offline
+```
+
 The rest drive your installed Chrome via `puppeteer-core`, so **the dev server must be running**:
 
 ```bash
@@ -240,6 +260,9 @@ rewrites a bare `/` into a Windows path.
 - Swaps change the ingredient list and the shopping list, not the method, allergens or nutrition,
   and the page says so while one is applied. Swap amounts are a cook's judgement, not a tested
   conversion. Swaps are not remembered between visits.
+- Offline support needs a production build, and is switched off in development. A recipe is
+  saved when you open it; search, filters and anything not yet opened still need a connection.
+  Browsers may clear saved pages under storage pressure — Safari after a few weeks unused.
 - Timers live for as long as cooking mode is open; closing it ends them. They also cannot ring
   from a locked phone, which is why cooking mode asks to keep the screen awake. Where sound is
   unavailable the timer says so rather than silently not ringing.

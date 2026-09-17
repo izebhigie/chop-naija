@@ -16,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
       // return JSON, and the pages that use them are already listed.
       // The three kitchen pages read device-local storage, so a crawler
       // only ever sees an empty state.
-      disallow: ["/api/", "/favorites", "/shopping-list", "/meal-planner"],
+      disallow: ["/api/", "/favorites", "/shopping-list", "/meal-planner", "/offline"],
     },
     sitemap: absoluteUrl("/sitemap.xml"),
     host: absoluteUrl("/").replace(/\/$/, ""),

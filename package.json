@@ -20,6 +20,7 @@
     "check:flows": "node scripts/flow-test.mjs",
     "check:a11y": "node scripts/a11y-check.mjs",
     "check:map": "node scripts/verify-map.mjs",
+    "check:offline": "node scripts/offline-check.mjs",
     "shoot": "node scripts/shoot.mjs"
   },
   "dependencies": {

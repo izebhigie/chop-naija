@@ -20,6 +20,7 @@ const ROUTES = [
   // With a kitchen selected, so the results and their coverage strips are
   // actually on the page when contrast and overflow are measured.
   "/cook-with?have=chicken,onion,tomato,rice",
+  "/offline",
 ];
 const WIDTHS = [320, 390, 768, 1024, 1440];
 

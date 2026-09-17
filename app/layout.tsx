@@ -3,6 +3,7 @@ import { DM_Serif_Display, Manrope, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { OfflineSupport } from "@/components/layout/OfflineSupport";
 import { siteUrl, isIndexable } from "@/lib/site";
 
 /**
@@ -75,6 +76,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
+        <OfflineSupport />
       </body>
     </html>
   );

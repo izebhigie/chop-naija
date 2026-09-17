@@ -29,6 +29,7 @@ const COLUMNS = [
       { href: "/favorites", label: "Favorites" },
       { href: "/shopping-list", label: "Shopping list" },
       { href: "/meal-planner", label: "Meal planner" },
+      { href: "/offline", label: "Saved for offline" },
       { href: "/countries", label: "Browse by country" },
     ],
   },
