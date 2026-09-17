@@ -318,8 +318,22 @@ const empty = await page.evaluate(() =>
 );
 check("An empty kitchen asks rather than showing everything", empty);
 
+// Describing a kitchen is local work. Tapping chips once cost a server round
+// trip each (router.replace fetches an RSC payload), which also broke offline.
+let chipRequests = 0;
+const countRsc = (request) => {
+  const url = new URL(request.url());
+  if (request.headers()["rsc"] === "1" || url.searchParams.has("_rsc")) chipRequests += 1;
+};
+page.on("request", countRsc);
 for (const label of ["Chicken", "Onions", "Tomatoes", "Rice"]) await pressChip(label);
 await new Promise((r) => setTimeout(r, 600));
+page.off("request", countRsc);
+check(
+  "Tapping ingredients makes no server requests",
+  chipRequests === 0,
+  `${chipRequests} RSC requests for 4 taps`,
+);
 
 const matched = await readResults();
 check(
@@ -479,6 +493,123 @@ check(
   leftOut.struck && leftOut.labelled && !leftOut.checkbox,
   JSON.stringify(leftOut),
 );
+
+/* ------------------------------------------------------ sharing a list */
+
+// Catch what the share sheet would have been handed.
+await page.evaluateOnNewDocument(() => {
+  navigator.share = async (data) => {
+    window.__shared = data;
+  };
+});
+await page.goto(`${BASE}/recipes/jollof-rice`, { waitUntil: "networkidle2" });
+await page.evaluate(() => localStorage.clear());
+await page.reload({ waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+await page.evaluate(() => {
+  [...document.querySelectorAll("button")]
+    .find((b) => b.textContent?.includes("Add ingredients to shopping list"))
+    ?.click();
+});
+await new Promise((r) => setTimeout(r, 400));
+
+await page.goto(`${BASE}/shopping-list`, { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+const ticked = await page.evaluate(() => {
+  const box = document.querySelector('input[type="checkbox"][aria-label^="Tick off "]');
+  box?.click();
+  return box?.getAttribute("aria-label")?.replace("Tick off ", "") ?? "";
+});
+const onList = await page.evaluate(
+  () => document.querySelectorAll('input[type="checkbox"][aria-label^="Tick off "]').length,
+);
+await new Promise((r) => setTimeout(r, 300));
+await page.evaluate(() => {
+  [...document.querySelectorAll("button")].find((b) => b.textContent?.trim() === "Share list")?.click();
+});
+await page.waitForFunction(() => Boolean(window.__shared), { timeout: 5000 }).catch(() => {});
+const shared = await page.evaluate(() => window.__shared ?? null);
+check(
+  "Sharing produces a link with the list in its fragment",
+  Boolean(shared?.url?.includes("/shopping-list/shared#1")),
+  shared ? `${shared.url.length} characters` : "nothing shared",
+);
+check(
+  "Only what is still to buy is sent",
+  shared?.text === `${onList - 1} things to buy`,
+  `${shared?.text ?? "?"} of ${onList} on the list, "${ticked}" ticked`,
+);
+
+// Someone else's phone: a separate browser profile with nothing saved.
+const partnerContext = await browser.createBrowserContext();
+const partner = await partnerContext.newPage();
+await partner.setViewport({ width: 390, height: 900 });
+await partner.goto(shared?.url ?? `${BASE}/shopping-list/shared`, { waitUntil: "networkidle2" });
+await partner
+  .waitForFunction(() => document.body.textContent?.includes("things to buy"), { timeout: 10000 })
+  .catch(() => {});
+const received = await partner.evaluate(() => document.querySelector("main")?.textContent ?? "");
+check(
+  "The link opens the list on another device",
+  received.includes(`${onList - 1} things to buy`) &&
+    received.includes("Long-grain parboiled rice") &&
+    received.includes("For Jollof Rice"),
+);
+check(
+  "The ticked item did not travel",
+  !new RegExp(`\\b${ticked.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(
+    received.replace(/For Jollof Rice|for Jollof Rice/g, ""),
+  ),
+  ticked,
+);
+
+const addShared = () =>
+  partner.evaluate(() => {
+    [...document.querySelectorAll("button")]
+      .find((b) => /^Add all \d+ to my shopping list$/.test(b.textContent?.trim() ?? ""))
+      ?.click();
+  });
+await addShared();
+await new Promise((r) => setTimeout(r, 400));
+await partner.goto(`${BASE}/shopping-list`, { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+const partnerList = await partner.evaluate(() => ({
+  lines: document.querySelectorAll('input[type="checkbox"][aria-label^="Tick off "]').length,
+  text: document.querySelector("main")?.textContent ?? "",
+}));
+check(
+  "Adding a shared list puts it on the other device's own list",
+  partnerList.lines === onList - 1 && /500g\s*Long-grain parboiled rice/.test(partnerList.text),
+  `${partnerList.lines} lines`,
+);
+
+// Added a second time, the same lines add together rather than repeating.
+await partner.goto(shared?.url ?? `${BASE}/shopping-list/shared`, { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+await addShared();
+await new Promise((r) => setTimeout(r, 400));
+await partner.goto(`${BASE}/shopping-list`, { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+const merged = await partner.evaluate(() => ({
+  lines: document.querySelectorAll('input[type="checkbox"][aria-label^="Tick off "]').length,
+  text: document.querySelector("main")?.textContent ?? "",
+}));
+check(
+  "Shared lines merge with ones already there instead of duplicating",
+  merged.lines === onList - 1 && /1kg\s*Long-grain parboiled rice/.test(merged.text),
+  `${merged.lines} lines`,
+);
+
+const cut = shared?.url ? shared.url.slice(0, Math.floor(shared.url.length * 0.7)) : "";
+await partner.goto(cut || `${BASE}/shopping-list/shared#1d.xx`, { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 800));
+check(
+  "A link cut short says so, rather than showing half a list",
+  (await partner.evaluate(() => document.body.textContent ?? "")).includes(
+    "This link looks incomplete",
+  ),
+);
+await partnerContext.close();
 
 /* -------------------------------------------------------------- search */
 

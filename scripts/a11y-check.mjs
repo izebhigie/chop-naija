@@ -21,6 +21,9 @@ const ROUTES = [
   // actually on the page when contrast and overflow are measured.
   "/cook-with?have=chicken,onion,tomato,rice",
   "/offline",
+  // A shared list with seven lines across four aisles. The list lives in the
+  // fragment, so without one the page would only ever show its empty state.
+  "/shopping-list/shared#1d.Pc-xTsMwFAXQX7Hu_Co5EWHIiligQ0VHy4PrurYVxy9ynC6I_2HiJ_pjKGlhvvcevfeJK_qGUNArvHFKfBEf0ToQjsEMc1gGA8IhusI-QhMieqWw5-x3vpiYxWTKiWNyZ1G2YSclwYM6UlJrUjikZRSVR1PZzaCnRy5JSWq2xtFytUGcOGdXQQ1him615J_x6v0Mev4PWlL36Uu5fY9OXIq5_djgQE0nCWPaKu1dH3lwZzGZqcT1m5ZQ52nVHsZ7rDa4LAqnBMpLSoTtfq311y8",
 ];
 const WIDTHS = [320, 390, 768, 1024, 1440];
 

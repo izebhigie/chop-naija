@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Check, Search, Plus, ShoppingBasket } from "lucide-react";
 import type { Aisle } from "@/lib/types";
 import { PANTRY } from "@/data/pantry";
@@ -24,7 +24,6 @@ const AISLE_ORDER: Aisle[] = [
 const STARTER = ["onion", "garlic", "tomato", "rice", "chicken", "egg", "olive-oil"];
 
 export function CookWithClient({ items }: { items: PantryRecipe[] }) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -56,6 +55,13 @@ export function CookWithClient({ items }: { items: PantryRecipe[] }) {
    * before leaving the page. That also means there is no history to come back
    * from, so the URL is only ever read at mount — a shared link arrives with
    * its ingredients, and after that state leads.
+   *
+   * Through history.replaceState, not router.replace. The router treats a
+   * changed query as a navigation and fetches a fresh RSC payload for every
+   * tap — four taps, four server requests — and only updates the address bar
+   * once each returns. Offline that request fails and Next falls back to a
+   * full reload, throwing away the kitchen you just described. The native
+   * call stays in sync with useSearchParams and never touches the network.
    */
   const lastWritten = useRef(selected.join(","));
   useEffect(() => {
@@ -67,8 +73,8 @@ export function CookWithClient({ items }: { items: PantryRecipe[] }) {
     if (key) params.set("have", key);
     else params.delete("have");
     const search = params.toString();
-    router.replace(search ? `${pathname}?${search}` : pathname, { scroll: false });
-  }, [selected, router, pathname]);
+    window.history.replaceState(null, "", search ? `${pathname}?${search}` : pathname);
+  }, [selected, pathname]);
 
   const toggle = useCallback((id: string) => {
     setSelected((current) =>

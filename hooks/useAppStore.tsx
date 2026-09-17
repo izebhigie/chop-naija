@@ -10,6 +10,7 @@ import type {
   Unit,
 } from "@/lib/types";
 import { scaleQuantity } from "@/lib/units";
+import type { SharedItem } from "@/lib/share-list";
 
 /**
  * Saved state for a guest: favorites, collections, the shopping list and the
@@ -230,6 +231,49 @@ const addCustomItem = (name: string) => {
   }));
 };
 
+/**
+ * Adds a list someone shared. Recipe lines merge exactly as they do when a
+ * recipe is added — the same name and unit add together, and the recipe names
+ * combine — so a shared week of shopping lands on top of your own without
+ * duplicate onions. A line someone added by hand stays hand-added, and is not
+ * added again if one with that name is already there.
+ *
+ * Returns how many lines were added or merged.
+ */
+function importItems(items: SharedItem[]): number {
+  let changed = 0;
+  update((current) => {
+    const next = [...current.shopping];
+    for (const item of items) {
+      if (item.sources.length === 0) {
+        const name = item.name.trim().toLowerCase();
+        if (next.some((line) => line.custom && line.name.trim().toLowerCase() === name)) continue;
+        next.push({ id: makeId("item"), ...item, checked: false, custom: true });
+        changed += 1;
+        continue;
+      }
+
+      const key = mergeKey(item.name, item.unit);
+      const existing = next.findIndex(
+        (line) => !line.custom && mergeKey(line.name, line.unit) === key,
+      );
+      if (existing >= 0) {
+        const line = next[existing];
+        next[existing] = {
+          ...line,
+          qty: line.qty === null || item.qty === null ? null : line.qty + item.qty,
+          sources: [...new Set([...line.sources, ...item.sources])],
+        };
+      } else {
+        next.push({ id: makeId("item"), ...item, checked: false });
+      }
+      changed += 1;
+    }
+    return { ...current, shopping: next };
+  });
+  return changed;
+}
+
 const toggleItem = (id: string) =>
   update((current) => ({
     ...current,
@@ -298,6 +342,7 @@ export function useAppStore() {
     toggleInCollection,
     addRecipeToList,
     addCustomItem,
+    importItems,
     toggleItem,
     renameItem,
     removeItem,

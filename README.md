@@ -38,6 +38,8 @@ npm run lint
 - **Offline** — every recipe you open is kept on the device, so it reloads with no connection —
   photos, swaps, cooking mode and timers included. Asking for a page that was never saved lands
   on a list of the ones that were.
+- **Share** — send what is left on your shopping list as a link. It opens on any phone, and adds
+  to that device's own list with matching lines added together.
 - **Plan** — save favorites into collections, send ingredients to a shopping list grouped by
   supermarket aisle, and lay out a week of meals that turns into one consolidated list.
 
@@ -93,6 +95,13 @@ requests the page's HTML — so the app posts each page it lands on to the worke
 bypass; it starts a production server, browses, kills the server, and then checks. It ends with a
 control run where the worker never registers, and requires that one to fail, so a pass cannot
 come from the browser's HTTP cache.
+
+**A shared list travels inside the link.** There is no backend to send a list to, so
+`lib/share-list.ts` packs the unticked lines into the URL fragment — compressed, so a four-recipe
+week of 61 items is about 1,000 characters. Browsers never send the fragment to a server, so
+nothing is uploaded or logged. A pasted link is untrusted input, and the decoder treats it that
+way: every field is validated, sizes are capped, and a small link that would inflate into
+megabytes is refused before it does.
 
 **Timers read the clock, they do not count down.** Each one stores the wall-clock moment it ends.
 Browsers throttle intervals in background tabs — sometimes to once a minute — so a timer built by
@@ -215,7 +224,7 @@ reading the data.
 running:
 
 ```bash
-npm test               # 74 tests over units, filters, the pantry matcher and swaps
+npm test               # 85 tests over units, filters, pantry, swaps and shared lists
 npm run check:map      # map geometry (no browser needed either)
 ```
 
@@ -231,7 +240,7 @@ The rest drive your installed Chrome via `puppeteer-core`, so **the dev server m
 ```bash
 npm run dev            # terminal 1
 
-npm run check:flows    # servings, units, favorites, list, cooking mode, timers, pantry, swaps
+npm run check:flows    # the everyday flows, including sharing a list to a second device
 npm run check:a11y     # overflow, focus rings, alt text, reduced motion, contrast
 npm run check:console  # console errors and hydration mismatches per route
 npm run shoot recipes 390   # screenshot a route at a width → scripts/out/
@@ -260,6 +269,9 @@ rewrites a bare `/` into a Windows path.
 - Swaps change the ingredient list and the shopping list, not the method, allergens or nutrition,
   and the page says so while one is applied. Swap amounts are a cook's judgement, not a tested
   conversion. Swaps are not remembered between visits.
+- A shared list is a copy, not a live list: ticking something off on one phone does not tick it
+  on the other. Anyone who has the link can read the list. Some apps cut very long links short;
+  the page says so rather than opening half a list.
 - Offline support needs a production build, and is switched off in development. A recipe is
   saved when you open it; search, filters and anything not yet opened still need a connection.
   Browsers may clear saved pages under storage pressure — Safari after a few weeks unused.

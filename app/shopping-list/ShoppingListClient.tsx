@@ -1,23 +1,20 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ShoppingBasket, Printer, Copy, Check, Trash2, Plus, X } from "lucide-react";
+import { ShoppingBasket, Printer, Copy, Check, Trash2, Plus, X, Share2 } from "lucide-react";
 import type { Aisle, ShoppingItem } from "@/lib/types";
 import { useAppStore } from "@/hooks/useAppStore";
 import { formatQuantity, type UnitSystem } from "@/lib/units";
+import { AISLE_ORDER } from "@/lib/aisles";
+import { encodeList } from "@/lib/share-list";
 import { cx } from "@/lib/format";
 import { Button, ButtonLink, EmptyState, Skeleton } from "@/components/ui/primitives";
 
-/** Supermarket order, roughly: fresh things first, cupboard things last. */
-const AISLE_ORDER: Aisle[] = [
-  "Produce",
-  "Meat & fish",
-  "Dairy & eggs",
-  "Bakery",
-  "Frozen",
-  "Pantry",
-  "Spices",
-];
+type ShareState =
+  | { status: "idle" }
+  | { status: "sent" | "copied"; count: number }
+  /** Neither the share sheet nor the clipboard was available: show the link to copy by hand. */
+  | { status: "manual"; count: number; url: string };
 
 export function ShoppingListClient() {
   const {
@@ -34,6 +31,7 @@ export function ShoppingListClient() {
   const [system, setSystem] = useState<UnitSystem>("metric");
   const [newItem, setNewItem] = useState("");
   const [copied, setCopied] = useState(false);
+  const [share, setShare] = useState<ShareState>({ status: "idle" });
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
 
@@ -70,6 +68,42 @@ export function ShoppingListClient() {
       window.setTimeout(() => setCopied(false), 2500);
     } catch {
       setCopied(false);
+    }
+  }
+
+  /**
+   * Sends what is still to buy. Ticked lines stay behind: whoever gets the
+   * link is going to the shop, and does not need what is already in the bag.
+   */
+  async function shareList() {
+    const items = shopping
+      .filter((item) => !item.checked)
+      .map(({ name, qty, unit, aisle, sources }) => ({ name, qty, unit, aisle, sources }));
+    if (items.length === 0) return;
+
+    const url = `${window.location.origin}/shopping-list/shared#${await encodeList(items)}`;
+    const count = items.length;
+
+    if (typeof navigator.share === "function") {
+      try {
+        await navigator.share({
+          title: "Shopping list",
+          text: `${count} ${count === 1 ? "thing" : "things"} to buy`,
+          url,
+        });
+        setShare({ status: "sent", count });
+        return;
+      } catch (error) {
+        // Closing the share sheet is a choice, not a failure.
+        if (error instanceof DOMException && error.name === "AbortError") return;
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(url);
+      setShare({ status: "copied", count });
+    } catch {
+      setShare({ status: "manual", count, url });
     }
   }
 
@@ -134,6 +168,17 @@ export function ShoppingListClient() {
           {copied ? "Copied" : "Copy list"}
         </Button>
 
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={shareList}
+          disabled={remaining === 0}
+          title={remaining === 0 ? "Everything is ticked off — nothing left to send" : undefined}
+        >
+          <Share2 aria-hidden="true" className="size-4" />
+          Share list
+        </Button>
+
         <Button variant="ghost" size="sm" onClick={clearChecked}>
           Clear ticked
         </Button>
@@ -146,6 +191,37 @@ export function ShoppingListClient() {
           {remaining} of {shopping.length} left
         </p>
       </div>
+
+      {share.status !== "idle" ? (
+        <div
+          role="status"
+          className="mt-4 rounded-xl bg-forest-wash px-4 py-3 text-sm text-forest print-hide"
+        >
+          <p>
+            <span className="font-semibold">
+              {share.status === "sent"
+                ? "Sent."
+                : share.status === "copied"
+                  ? "Link copied."
+                  : "Copy this link to send it:"}
+            </span>{" "}
+            {share.status !== "manual"
+              ? `It carries the ${share.count} ${share.count === 1 ? "item" : "items"} still to buy. `
+              : null}
+            Nothing is uploaded — the list travels inside the link, so anyone who has it can read
+            it.
+          </p>
+          {share.status === "manual" ? (
+            <input
+              readOnly
+              value={share.url}
+              onFocus={(event) => event.currentTarget.select()}
+              aria-label="Link to this shopping list"
+              className="mt-2 h-10 w-full rounded-full bg-paper px-4 font-mono text-xs text-ink outline-none ring-1 ring-line focus-visible:ring-2 focus-visible:ring-forest"
+            />
+          ) : null}
+        </div>
+      ) : null}
 
       <form
         onSubmit={(event) => {
