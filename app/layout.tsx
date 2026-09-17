@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Serif_Display, Manrope, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -54,6 +54,11 @@ export const metadata: Metadata = {
       "Authentic recipes from countries around the world, with ingredients that scale and steps written to be cooked from.",
   },
   robots: { index: isIndexable, follow: isIndexable },
+};
+
+/** Declared in the head as well as in CSS, so it applies before the stylesheet loads. */
+export const viewport: Viewport = {
+  colorScheme: "only light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

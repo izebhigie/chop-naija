@@ -75,6 +75,14 @@
   }
 
   html {
+    /*
+      The palette is designed for light only. "only" is the part that
+      matters: plain "light" still lets Chrome on Android force-darken the
+      page, which inverts the cream into a muddy grey and forest green into
+      something no one chose. It also keeps form controls and scrollbars
+      light to match.
+    */
+    color-scheme: only light;
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
   }

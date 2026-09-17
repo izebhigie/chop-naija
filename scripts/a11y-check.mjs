@@ -7,6 +7,7 @@
  */
 
 import puppeteer from "puppeteer-core";
+import sharp from "sharp";
 
 const BASE = "http://localhost:3000";
 const ROUTES = [
@@ -302,6 +303,39 @@ check(
 }
 
 await browser.close();
+
+/* ---------------------------------------------------- forced dark mode */
+
+/*
+ * Chrome on Android can force-darken pages that do not declare a colour
+ * scheme, and it does it badly here: cream turns muddy brown-black and the
+ * forest-green primary button vanishes into the header. The app opts out
+ * with `color-scheme: only light`. This launches Chrome with the same
+ * force-dark feature and reads a pixel of the page background, so deleting
+ * that one line fails a check instead of shipping.
+ */
+{
+  const dark = await puppeteer.launch({
+    executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    headless: "new",
+    args: ["--no-sandbox", "--enable-features=WebContentsForceDark"],
+  });
+  const page = await dark.newPage();
+  await page.setViewport({ width: 1100, height: 700 });
+  await page.goto(`${BASE}/`, { waitUntil: "networkidle2" });
+  await new Promise((r) => setTimeout(r, 800));
+  const shot = await page.screenshot({ clip: { x: 5, y: 300, width: 1, height: 1 } });
+  const { data } = await sharp(shot).raw().toBuffer({ resolveWithObject: true });
+  await dark.close();
+
+  const [r, g, b] = data;
+  // Cream is rgb(250, 246, 238); forced darkening lands near rgb(36, 33, 27).
+  check(
+    "Forced dark mode leaves the palette alone",
+    r > 230 && g > 225 && b > 215,
+    `page background rgb(${r}, ${g}, ${b})`,
+  );
+}
 
 const failed = results.filter((ok) => !ok).length;
 console.log(`\n${results.length - failed}/${results.length} checks passed`);
